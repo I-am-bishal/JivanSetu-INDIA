@@ -1,0 +1,14 @@
+export default {
+  appName: "ଜୀବନସେତୁ",
+  tagline: "ଜୀବନର ସେତୁ",
+  taglineFull: "ବଞ୍ଚାୟଥିବା ପ୍ରତ୍ୟେକ ଅଙ୍ଗ ଏକ ପରିବାରକୁ ଏକ କରିଥାଏ",
+  subTagline: "ଭାରତର ବିଶ୍ୱସ୍ତ ଅଙ୍ଗ ଓ ରକ୍ତ ଦାନ ମ୍ୟାଚିଂ ପ୍ଲାଟଫର୍ମ",
+  nav: { home: "ହୋମ", urgency: "SOS ଡ୍ୟାଶ୍‌ବୋର୍ଡ", sevaAI: "ସେବା AI", about: "ଆମ ବିଷୟରେ", login: "ଲଗ୍ ଇନ", donorCard: "ମୋ ଦାତା କାର୍ଡ" },
+  personas: { title: "ମୁଁ ଚାହୁଁଛି...", organDonor: "ଅଙ୍ଗ ଦାନ କରନ୍ତୁ", organDonorSub: "ଅଙ୍ଗ ଦାତା ଭାବରେ ପଞ୍ଜୀକରଣ କରନ୍ତୁ", organReceiver: "ଅଙ୍ଗ ଦରକାର", organReceiverSub: "ଆପଣଙ୍କ ଚିକିତ୍ସାଗତ ଆବଶ୍ୟକତା ପଞ୍ଜୀୟନ କରନ୍ତୁ", bloodDonor: "ରକ୍ତ ଦାନ କରନ୍ତୁ", bloodDonorSub: "ସ୍ୱେଚ୍ଛାକୃତ ରକ୍ତ ଦାନ ଅନୁସୂଚୀ କରନ୍ତୁ", bloodReceiver: "ରକ୍ତ ଦରକାର", bloodReceiverSub: "ନିକଟ ରକ୍ତ ଦାତା ଖୋଜନ୍ତୁ" },
+  stats: { donors: "ପଞ୍ଜୀକୃତ ଦାତା", livesSaved: "ବଞ୍ଚାୟଥିବା ଜୀବନ", hospitals: "ଅଂଶୀଦାର ଡାକ୍ତରଖାନା", cities: "ଆଚ୍ଛାଦିତ ସହର" },
+  sos: { title: "ଲାଇଭ SOS", ticker: "ଜରୁରୀ", critical: "ଗୁରୁତ୍ୱପୂର୍ଣ", needsBlood: "କୁ", urgently: "ଜରୁରୀ ଭାବେ ଦରକାର", at: "ରେ", hoursAgo: "ଘଣ୍ଟା ପୂର୍ବେ", minutesAgo: "ମିନିଟ ପୂର୍ବେ", respond: "ଏବେ ସାହାଯ୍ୟ କରନ୍ତୁ", viewAll: "ସମସ୍ତ SOS ଅନୁରୋଧ ଦେଖନ୍ତୁ", severity: { critical: "ଗୁରୁତ୍ୱପୂର୍ଣ", high: "ଅଧିକ", moderate: "ମଧ୍ୟମ" } },
+  sevaAI: { name: "ସେବା AI", greeting: "ନମସ୍କାର! ମୁଁ ସେବା, ଜୀବନସେତୁରେ ଆପଣଙ୍କ ମାର୍ଗଦର୍ଶକ। ଆଜି ମୁଁ ଆପଣଙ୍କୁ କିପରି ସାହାଯ୍ୟ କରିପାରିବି?", placeholder: "ଅଙ୍ଗ ଦାନ, ରକ୍ତ ପ୍ରକାର, ପଞ୍ଜୀକରଣ ବିଷୟରେ ପଚାରନ୍ତୁ...", suggestions: ["ଅଙ୍ଗ ଦାତା ଭାବରେ କିପରି ପଞ୍ଜୀଭୁକ୍ତ ହେବ?", "କେଉଁ ଦଲିଲ ଦରକାର?", "ନିକଟ ରକ୍ତ ବ୍ୟାଙ୍କ ଖୋଜ", "ଭାରତରେ ଅଙ୍ଗ ଦାନ ଆଇନସମ୍ମତ କି?"], typing: "ସେବା ଟାଇପ୍ କରୁଛନ୍ତି..." },
+  registration: { steps: { personal: "ବ୍ୟକ୍ତିଗତ ତଥ୍ୟ", verify: "OTP ଯାଞ୍ଚ", medical: "ଚିକିତ୍ସା ବିବରଣୀ", documents: "ଦଲିଲ", done: "ସଂପୂର୍ଣ" }, fullName: "ପୂର୍ଣ ନାମ", mobile: "ମୋବାଇଲ ନଂ.", aadhaar: "ଆଧାର ନଂ.", dob: "ଜନ୍ମ ତାରିଖ", bloodType: "ରକ୍ତ ଗ୍ରୁପ", city: "ସହର", state: "ରାଜ୍ୟ", sendOTP: "OTP ପଠାନ୍ତୁ", verifyOTP: "OTP ଯାଞ୍ଚ କରନ୍ତୁ", otpSent: "OTP ଆପଣଙ୍କ ଆଧାର-ଲିଙ୍କ ମୋବାଇଲକୁ ପଠାଯାଇଛି", enterOTP: "6 ସଂଖ୍ୟା OTP ଦାଖଲ କରନ୍ତୁ", uploadDoc: "ଡାକ୍ତରଙ୍କ ମତ ଅପଲୋଡ କରନ୍ତୁ", uploadCert: "ଚିକିତ୍ସା ପ୍ରମାଣପତ୍ର ଅପଲୋଡ କରନ୍ତୁ", submitBtn: "ପଞ୍ଜୀକରଣ ଜମା କରନ୍ତୁ", successTitle: "ପଞ୍ଜୀକରଣ ସଫଳ!", successMsg: "ଆପଣଙ୍କ ଦାତା କାର୍ଡ ଏବେ ସକ୍ରିୟ। ଆପଣ ଏକ ବୀର।", organs: { heart: "ହୃଦୟ", kidneys: "ବୃକ୍କ", liver: "ଯକୃତ", lungs: "ଫୁସ୍‌ଫୁସ", corneas: "କର୍ଣ୍ଣିଆ", pancreas: "ଅଗ୍ନ୍ୟାଶୟ", smallIntestine: "ଛୋଟ ଅନ୍ତ୍ର" } },
+  compliance: { title: "THOTA ଓ NOTTO ଅନୁସାରୀ", body: "ଜୀବନସେତୁ ଏକ ମ୍ୟାଚିଂ ଓ ସଚେତନତା ପ୍ଲାଟଫର୍ମ, ବଜାର ନୁହେଁ।" },
+  footer: { tagline: "ଗୋଟିଏ ଗୋଟିଏ ଜୀବନ ବଞ୍ଚାଇ।", compliance: "THOTA 1994 ଅନୁସାରୀ | NOTTO ଆଫିଲିଏଟ | ଡାଟା ସୁରକ୍ଷିତ", emergency: "ଜାତୀୟ ଅଙ୍ଗ ପ୍ରତ୍ୟାରୋପଣ ହେଲ୍ପଲାଇନ: 1800-11-NOTTO" },
+};

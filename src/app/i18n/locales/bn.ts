@@ -1,0 +1,14 @@
+export default {
+  appName: "জীবনসেতু",
+  tagline: "জীবনের সেতু",
+  taglineFull: "প্রতিটি বাঁচানো অঙ্গ একটি পরিবারকে পুনরায় মিলিয়ে দেয়",
+  subTagline: "ভারতের বিশ্বস্ত অঙ্গ ও রক্তদান ম্যাচিং প্ল্যাটফর্ম",
+  nav: { home: "হোম", urgency: "SOS ড্যাশবোর্ড", sevaAI: "সেবা AI", about: "আমাদের সম্পর্কে", login: "লগইন", donorCard: "আমার ডোনার কার্ড" },
+  personas: { title: "আমি চাই...", organDonor: "অঙ্গ দান করুন", organDonorSub: "অঙ্গ দাতা হিসেবে নিবন্ধন করুন", organReceiver: "অঙ্গ প্রয়োজন", organReceiverSub: "আপনার চিকিৎসা চাহিদা নিবন্ধন করুন", bloodDonor: "রক্ত দান করুন", bloodDonorSub: "স্বেচ্ছায় রক্তদান সময়সূচী করুন", bloodReceiver: "রক্ত প্রয়োজন", bloodReceiverSub: "কাছের রক্তদাতা খুঁজুন" },
+  stats: { donors: "নিবন্ধিত দাতা", livesSaved: "বাঁচানো জীবন", hospitals: "অংশীদার হাসপাতাল", cities: "কভার করা শহর" },
+  sos: { title: "লাইভ SOS", ticker: "জরুরি", critical: "সংকটজনক", needsBlood: "এর", urgently: "জরুরিভাবে প্রয়োজন", at: "এ", hoursAgo: "ঘণ্টা আগে", minutesAgo: "মিনিট আগে", respond: "এখনই সাড়া দিন", viewAll: "সব SOS অনুরোধ দেখুন", severity: { critical: "সংকটজনক", high: "উচ্চ", moderate: "মাঝারি" } },
+  sevaAI: { name: "সেবা AI", greeting: "নমস্কার! আমি সেবা, জীবনসেতুতে আপনার গাইড। আজ আমি কীভাবে আপনাকে সাহায্য করতে পারি?", placeholder: "অঙ্গ দান, রক্তের ধরন, নিবন্ধন সম্পর্কে জিজ্ঞাসা করুন...", suggestions: ["অঙ্গ দাতা হিসেবে কীভাবে নিবন্ধন করবেন?", "কী কী নথি প্রয়োজন?", "নিকটতম রক্ত ব্যাংক খুঁজুন", "ভারতে অঙ্গ দান কি আইনি?"], typing: "সেবা টাইপ করছে..." },
+  registration: { steps: { personal: "ব্যক্তিগত তথ্য", verify: "OTP যাচাই", medical: "চিকিৎসা বিবরণ", documents: "নথিপত্র", done: "সম্পন্ন" }, fullName: "পুরো নাম", mobile: "মোবাইল নম্বর", aadhaar: "আধার নম্বর", dob: "জন্ম তারিখ", bloodType: "রক্তের গ্রুপ", city: "শহর", state: "রাজ্য", sendOTP: "OTP পাঠান", verifyOTP: "OTP যাচাই করুন", otpSent: "OTP আপনার আধার-সংযুক্ত মোবাইলে পাঠানো হয়েছে", enterOTP: "৬-সংখ্যার OTP লিখুন", uploadDoc: "ডাক্তারের মতামত আপলোড করুন", uploadCert: "চিকিৎসা সনদ আপলোড করুন", submitBtn: "নিবন্ধন জমা দিন", successTitle: "নিবন্ধন সফল!", successMsg: "আপনার ডোনার কার্ড এখন সক্রিয়। আপনি একজন বীর।", organs: { heart: "হৃদয়", kidneys: "কিডনি", liver: "লিভার", lungs: "ফুসফুস", corneas: "কর্নিয়া", pancreas: "অগ্ন্যাশয়", smallIntestine: "ক্ষুদ্রান্ত্র" } },
+  compliance: { title: "THOTA এবং NOTTO সম্মত", body: "জীবনসেতু একটি ম্যাচিং ও সচেতনতা প্ল্যাটফর্ম, বাজার নয়।" },
+  footer: { tagline: "একটি একটি করে জীবন বাঁচাচ্ছি।", compliance: "THOTA 1994 সম্মত | NOTTO অনুমোদিত | ডেটা সুরক্ষিত", emergency: "জাতীয় অঙ্গ প্রতিস্থাপন হেল্পলাইন: 1800-11-NOTTO" },
+};
