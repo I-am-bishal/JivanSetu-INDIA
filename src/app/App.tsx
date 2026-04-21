@@ -3,6 +3,7 @@ import { RouterProvider } from "react-router";
 import { router } from "./routes";
 import { useState, useEffect } from "react";
 import { Heart, Activity } from "lucide-react";
+import { ThemeProvider } from "./ThemeContext";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -56,5 +57,9 @@ export default function App() {
     );
   }
 
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 }

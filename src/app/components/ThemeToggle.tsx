@@ -1,42 +1,23 @@
-import { useState, useEffect } from "react";
+import { useTheme } from "../ThemeContext";
 import { Sun, Moon } from "lucide-react";
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<"dark" | "light">(() => {
-    if (typeof window !== "undefined") {
-      return (localStorage.getItem("jivansetu-theme") as "dark" | "light") || "dark";
-    }
-    return "dark";
-  });
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-      root.classList.remove("light");
-    } else {
-      root.classList.add("light");
-      root.classList.remove("dark");
-    }
-    localStorage.setItem("jivansetu-theme", theme);
-  }, [theme]);
-
-  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  const { theme, toggleTheme, isDark } = useTheme();
 
   return (
     <button
-      onClick={toggle}
+      onClick={toggleTheme}
       className="relative w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95"
       style={{
-        background: theme === "dark"
+        background: isDark
           ? "rgba(255,255,255,0.08)"
           : "rgba(0,0,0,0.06)",
-        border: theme === "dark"
+        border: isDark
           ? "1px solid rgba(255,255,255,0.12)"
           : "1px solid rgba(0,0,0,0.1)",
       }}
-      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-      title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      title={`Switch to ${isDark ? "light" : "dark"} mode`}
     >
       <div className="relative w-5 h-5">
         <Sun
@@ -54,7 +35,7 @@ export function ThemeToggle() {
           style={{
             opacity: theme === "dark" ? 1 : 0,
             transform: theme === "dark" ? "rotate(0deg) scale(1)" : "rotate(-90deg) scale(0)",
-            color: "#93c5fd",
+            color: "#3b82f6",
           }}
         />
       </div>

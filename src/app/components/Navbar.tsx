@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "./LanguageSelector";
 import { ThemeToggle } from "./ThemeToggle";
 import { NotificationCenter } from "./NotificationCenter";
+import { useThemeStyles } from "../ThemeContext";
 import {
   Menu, X, Heart, Activity, ChevronDown, MapPin, Bell, ScanLine,
   Stethoscope, Shield, Award, Scale, Droplets, BarChart3, BookOpen,
@@ -31,6 +32,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
+  const styles = useThemeStyles();
 
   const navItems = [
     { href: "/", label: t("nav.home") },
@@ -62,11 +64,11 @@ export function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-40 w-full"
+      className="sticky top-0 z-40 w-full transition-colors duration-300"
       style={{
-        background: "rgba(8, 16, 36, 0.85)",
+        background: styles.navBg,
         backdropFilter: "blur(20px)",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        borderBottom: `1px solid ${styles.navBorder}`,
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -84,9 +86,9 @@ export function Navbar() {
               <span
                 style={{
                   fontFamily: "'Noto Sans', 'Noto Sans Devanagari', sans-serif",
-                  fontSize: "17px",
+                  fontSize: "19px",
                   fontWeight: 700,
-                  color: "white",
+                  color: styles.textPrimary,
                   lineHeight: 1.1,
                   letterSpacing: "-0.01em",
                 }}
@@ -95,8 +97,8 @@ export function Navbar() {
               </span>
               <span
                 style={{
-                  fontSize: "10px",
-                  color: "rgba(148,163,184,0.9)",
+                  fontSize: "12px",
+                  color: styles.textMuted,
                   letterSpacing: "0.03em",
                   fontWeight: 400,
                   fontFamily: "'Noto Sans Devanagari', sans-serif",
@@ -115,10 +117,10 @@ export function Navbar() {
                 to={item.href}
                 className={`px-3.5 py-1.5 rounded-lg transition-all duration-200 ${
                   isActive(item.href)
-                    ? "bg-blue-600/20 text-blue-300"
-                    : "text-white/70 hover:text-white hover:bg-white/8"
+                    ? styles.navActiveClass
+                    : `${styles.navHoverClass}`
                 }`}
-                style={{ fontSize: "13.5px", fontWeight: 500 }}
+                style={{ fontSize: "15px", fontWeight: 500, color: isActive(item.href) ? undefined : styles.navTextMuted }}
               >
                 {item.label}
               </Link>
@@ -130,10 +132,10 @@ export function Navbar() {
                 onClick={() => setMoreOpen(!moreOpen)}
                 className={`flex items-center gap-1 px-3.5 py-1.5 rounded-lg transition-all duration-200 ${
                   moreOpen || MORE_ITEMS.some((m) => isActive(m.href))
-                    ? "bg-blue-600/20 text-blue-300"
-                    : "text-white/70 hover:text-white hover:bg-white/8"
+                    ? styles.navActiveClass
+                    : `${styles.navHoverClass}`
                 }`}
-                style={{ fontSize: "13.5px", fontWeight: 500 }}
+                style={{ fontSize: "15px", fontWeight: 500, color: (moreOpen || MORE_ITEMS.some((m) => isActive(m.href))) ? undefined : styles.navTextMuted }}
               >
                 More
                 <ChevronDown size={14} className={`transition-transform ${moreOpen ? "rotate-180" : ""}`} />
@@ -143,10 +145,10 @@ export function Navbar() {
                 <div
                   className="absolute top-full right-0 mt-2 w-56 rounded-2xl py-2 z-50 max-h-[70vh] overflow-y-auto"
                   style={{
-                    background: "rgba(15,23,42,0.98)",
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    background: styles.dropdownBg,
+                    border: `1px solid ${styles.dropdownBorder}`,
                     backdropFilter: "blur(20px)",
-                    boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+                    boxShadow: styles.dropdownShadow,
                     scrollbarWidth: "thin",
                     scrollbarColor: "rgba(255,255,255,0.1) transparent",
                   }}
@@ -155,9 +157,10 @@ export function Navbar() {
                     <Link
                       key={item.href}
                       to={item.href}
-                      className={`flex items-center gap-2.5 px-4 py-2.5 transition-all ${
-                        isActive(item.href) ? "bg-white/8" : "hover:bg-white/5"
-                      }`}
+                      className={`flex items-center gap-2.5 px-4 py-2.5 transition-all w-full`}
+                      style={{ background: isActive(item.href) ? styles.dropdownItemHover : "transparent" }}
+                      onMouseEnter={(e) => { if (!isActive(item.href)) e.currentTarget.style.background = styles.dropdownItemHover; }}
+                      onMouseLeave={(e) => { if (!isActive(item.href)) e.currentTarget.style.background = "transparent"; }}
                     >
                       <div
                         className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
@@ -167,9 +170,9 @@ export function Navbar() {
                       </div>
                       <span
                         style={{
-                          fontSize: "13px",
+                          fontSize: "14px",
                           fontWeight: isActive(item.href) ? 600 : 400,
-                          color: isActive(item.href) ? "white" : "rgba(255,255,255,0.7)",
+                          color: isActive(item.href) ? styles.textPrimary : styles.dropdownItemText,
                         }}
                       >
                         {item.label}
@@ -188,10 +191,10 @@ export function Navbar() {
             <LanguageSelector />
             <Link
               to="/login"
-              className="px-4 py-1.5 rounded-full text-white transition-all duration-200 hover:opacity-90 active:scale-95"
+              className="px-4 py-2 rounded-full text-white transition-all duration-200 hover:opacity-90 active:scale-95"
               style={{
                 background: "linear-gradient(135deg, #2563eb, #1d4ed8)",
-                fontSize: "13px",
+                fontSize: "14px",
                 fontWeight: 600,
                 boxShadow: "0 4px 15px rgba(37,99,235,0.35)",
               }}
@@ -202,7 +205,8 @@ export function Navbar() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden text-white/80 p-2"
+            className="md:hidden p-2"
+            style={{ color: styles.navText }}
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -214,7 +218,7 @@ export function Navbar() {
       {mobileOpen && (
         <div
           className="md:hidden px-4 pb-4 pt-2 flex flex-col gap-1 max-h-[80vh] overflow-y-auto"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ borderTop: `1px solid ${styles.mobileBorder}`, background: styles.navBg }}
         >
           {navItems.map((item) => (
             <Link
@@ -222,17 +226,17 @@ export function Navbar() {
               to={item.href}
               onClick={() => setMobileOpen(false)}
               className={`px-4 py-2.5 rounded-xl transition-all ${
-                isActive(item.href) ? "bg-blue-600/20 text-blue-300" : "text-white/70"
+                isActive(item.href) ? styles.navActiveClass : ""
               }`}
-              style={{ fontSize: "14px", fontWeight: 500 }}
+              style={{ fontSize: "15px", fontWeight: 500, color: isActive(item.href) ? undefined : styles.navTextMuted }}
             >
               {item.label}
             </Link>
           ))}
 
           {/* Divider */}
-          <div className="h-px my-1" style={{ background: "rgba(255,255,255,0.06)" }} />
-          <p className="px-4 pt-1" style={{ fontSize: "10px", color: "rgba(148,163,184,0.4)", letterSpacing: "0.08em", fontWeight: 600 }}>MORE FEATURES</p>
+          <div className="h-px my-1" style={{ background: styles.mobileBorder }} />
+          <p className="px-4 pt-1" style={{ fontSize: "12px", color: styles.textMuted, letterSpacing: "0.08em", fontWeight: 600 }}>MORE FEATURES</p>
 
           {MORE_ITEMS.map((item) => (
             <Link
@@ -240,16 +244,16 @@ export function Navbar() {
               to={item.href}
               onClick={() => setMobileOpen(false)}
               className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl transition-all ${
-                isActive(item.href) ? "bg-blue-600/20 text-blue-300" : "text-white/70"
+                isActive(item.href) ? styles.navActiveClass : ""
               }`}
-              style={{ fontSize: "14px", fontWeight: 500 }}
+              style={{ fontSize: "15px", fontWeight: 500, color: isActive(item.href) ? undefined : styles.navTextMuted }}
             >
               <span style={{ color: item.color }}>{item.icon}</span>
               {item.label}
             </Link>
           ))}
 
-          <div className="flex items-center gap-3 mt-2 pt-2" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="flex items-center gap-3 mt-2 pt-2" style={{ borderTop: `1px solid ${styles.mobileBorder}` }}>
             <ThemeToggle />
             <NotificationCenter />
             <LanguageSelector />
@@ -257,7 +261,7 @@ export function Navbar() {
               to="/login"
               onClick={() => setMobileOpen(false)}
               className="flex-1 text-center px-4 py-2 rounded-full text-white"
-              style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", fontSize: "13px", fontWeight: 600 }}
+              style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", fontSize: "14px", fontWeight: 600 }}
             >
               {t("nav.login")}
             </Link>

@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Heart, Activity, Mail, Lock, ArrowRight } from "lucide-react";
 import { Link } from "react-router";
+import { useThemeStyles } from "../ThemeContext";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const styles = useThemeStyles();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,13 +16,13 @@ export function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#060d1f" }}>
+    <div className="min-h-screen flex items-center justify-center p-4 transition-colors duration-300" style={{ background: styles.pageBg }}>
       <div 
         className="w-full max-w-md p-8 rounded-3xl"
         style={{
-          background: "linear-gradient(180deg, rgba(30,58,138,0.1), rgba(0,0,0,0))",
-          border: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
+          background: styles.isDark ? "linear-gradient(180deg, rgba(30,58,138,0.1), rgba(0,0,0,0))" : "linear-gradient(180deg, rgba(37,99,235,0.05), rgba(255,255,255,0))",
+          border: `1px solid ${styles.cardBorder}`,
+          boxShadow: styles.isDark ? "0 20px 40px rgba(0,0,0,0.4)" : "0 20px 40px rgba(0,0,0,0.05)"
         }}
       >
         <div className="flex flex-col items-center mb-8">
@@ -33,16 +35,16 @@ export function Login() {
                <Activity size={10} color="white" />
              </div>
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Welcome Back</h2>
-          <p className="text-sm text-blue-200/60">Log in to your JivanSetu account</p>
+          <h2 className="text-2xl font-bold mb-2" style={{ color: styles.textPrimary }}>Welcome Back</h2>
+          <p className="text-sm" style={{ color: styles.textSecondary }}>Log in to your JivanSetu account</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-blue-200/80 pl-1">Email Address</label>
+            <label className="text-xs font-medium pl-1" style={{ color: styles.textLabel }}>Email Address</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                <Mail size={16} className="text-white/40" />
+                <Mail size={16} style={{ color: styles.textMuted }} />
               </div>
               <input 
                 type="email"
@@ -50,20 +52,21 @@ export function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="donor@example.com"
-                className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-white/20 transition-all focus:outline-none"
+                className="w-full pl-10 pr-4 py-3 rounded-xl text-sm transition-all focus:outline-none"
                 style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: styles.inputBg,
+                  border: `1px solid ${styles.inputBorder}`,
+                  color: styles.inputText,
                 }}
               />
             </div>
           </div>
 
           <div className="space-y-1.5 pt-2">
-            <label className="text-xs font-medium text-blue-200/80 pl-1">Password</label>
+            <label className="text-xs font-medium pl-1" style={{ color: styles.textLabel }}>Password</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                <Lock size={16} className="text-white/40" />
+                <Lock size={16} style={{ color: styles.textMuted }} />
               </div>
               <input 
                 type="password"
@@ -71,10 +74,11 @@ export function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-white/20 transition-all focus:outline-none"
+                className="w-full pl-10 pr-4 py-3 rounded-xl text-sm transition-all focus:outline-none"
                 style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  background: styles.inputBg,
+                  border: `1px solid ${styles.inputBorder}`,
+                  color: styles.inputText,
                 }}
               />
             </div>
@@ -95,9 +99,9 @@ export function Login() {
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-white/50">
+        <div className="mt-6 text-center text-sm" style={{ color: styles.textMuted }}>
           Don't have an account?{" "}
-          <Link to="/register" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
+          <Link to="/register" className="font-medium transition-colors" style={{ color: styles.textLabel }}>
             Register here
           </Link>
         </div>

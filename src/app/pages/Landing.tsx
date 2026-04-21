@@ -8,6 +8,7 @@ import {
   Bell, ScanLine, Stethoscope, Scale, BarChart3, BookOpen
 } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { useThemeStyles } from "../ThemeContext";
 
 const HERO_IMAGES = [
   "https://images.unsplash.com/photo-1672075270227-ddf5cb181a79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080",
@@ -123,11 +124,11 @@ function AnimatedStat({ value, label, icon, color }: { value: string; label: str
       viewport={{ once: true }}
       className="flex flex-col items-center gap-2 px-6 py-4"
     >
-      <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-1" style={{ background: `${color}22`, color }}>
+      <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-1" style={{ background: `${color}22`, color }}>
         {icon}
       </div>
-      <span style={{ fontSize: "28px", fontWeight: 800, color: "white", letterSpacing: "-0.02em" }}>{value}</span>
-      <span style={{ fontSize: "12px", color: "rgba(148,163,184,0.8)", textAlign: "center", lineHeight: 1.3 }}>{label}</span>
+      <span style={{ fontSize: "32px", fontWeight: 800, color: "var(--color-primary-foreground, white)", letterSpacing: "-0.02em" }}>{value}</span>
+      <span style={{ fontSize: "14px", color: "var(--color-muted-foreground)", textAlign: "center", lineHeight: 1.3 }}>{label}</span>
     </motion.div>
   );
 }
@@ -135,6 +136,7 @@ function AnimatedStat({ value, label, icon, color }: { value: string; label: str
 export function Landing() {
   const { t } = useTranslation();
   const [heroIdx, setHeroIdx] = useState(0);
+  const styles = useThemeStyles();
 
   useEffect(() => {
     const interval = setInterval(() => setHeroIdx((i) => (i + 1) % HERO_IMAGES.length), 5000);
@@ -142,7 +144,7 @@ export function Landing() {
   }, []);
 
   return (
-    <div style={{ background: "#060d1f", minHeight: "100vh", color: "white" }}>
+    <div style={{ background: "transparent", minHeight: "100vh", color: styles.textPrimary }}>
       {/* ═══════════════════════════════════════════
           HERO SECTION
       ═══════════════════════════════════════════ */}
@@ -215,21 +217,17 @@ export function Landing() {
                 fontFamily: "'Noto Serif Display', 'Noto Sans', serif",
               }}
             >
-              <span style={{ color: "white" }}>जीवनसेतु</span>
+              <span style={{ color: styles.textPrimary }}>जीवनसेतु</span>
               <br />
-              <span style={{
-                background: "linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}>
+              <span style={styles.gradientText}>
                 JivanSetu
               </span>
             </h1>
             <p
               style={{
                 fontSize: "clamp(16px, 2.5vw, 22px)",
-                color: "rgba(255,255,255,0.85)",
-                fontWeight: 400,
+                color: styles.textSecondary,
+                fontWeight: 500,
                 fontFamily: "'Noto Serif Display', serif",
                 fontStyle: "italic",
                 letterSpacing: "0.01em",
@@ -244,7 +242,7 @@ export function Landing() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
             className="text-center mb-10 max-w-xl"
-            style={{ fontSize: "15px", color: "rgba(148,163,184,0.9)", lineHeight: 1.6 }}
+            style={{ fontSize: "16px", color: styles.textMuted, lineHeight: 1.6 }}
           >
             {t("subTagline")}
           </motion.p>
@@ -269,9 +267,9 @@ export function Landing() {
                   to={card.href}
                   className="block rounded-3xl p-5 h-full relative overflow-hidden group"
                   style={{
-                    background: "rgba(255,255,255,0.04)",
+                    background: styles.cardBg,
                     backdropFilter: "blur(20px)",
-                    border: `1px solid ${card.border}`,
+                    border: `1px solid ${styles.cardBorder}`,
                     boxShadow: `0 8px 32px ${card.glowColor}`,
                     transition: "all 0.3s ease",
                   }}
@@ -279,7 +277,7 @@ export function Landing() {
                   {/* Gradient glow bg */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: card.gradient, opacity: 0.08 }}
+                    style={{ background: card.gradient, opacity: styles.isDark ? 0.08 : 0.04 }}
                   />
 
                   {/* Badge */}
@@ -313,21 +311,21 @@ export function Landing() {
 
                   {/* Text */}
                   <h3
-                    style={{ fontSize: "16px", fontWeight: 700, color: "white", lineHeight: 1.2, marginBottom: "4px" }}
+                    style={{ fontSize: "18px", fontWeight: 700, color: styles.textPrimary, lineHeight: 1.2, marginBottom: "4px" }}
                   >
                     {card.title}
                   </h3>
-                  <p style={{ fontSize: "12px", color: "#d1d5db", marginBottom: "8px", fontFamily: "'Noto Sans Devanagari', sans-serif" }}>
+                  <p style={{ fontSize: "14px", color: styles.textSecondary, marginBottom: "8px", fontFamily: "'Noto Sans Devanagari', sans-serif" }}>
                     {card.titleHi}
                   </p>
-                  <p style={{ fontSize: "12px", color: "rgba(148,163,184,0.8)", lineHeight: 1.4, marginBottom: "12px" }}>
+                  <p style={{ fontSize: "14px", color: styles.textMuted, lineHeight: 1.4, marginBottom: "12px" }}>
                     {card.sub}
                   </p>
 
                   {/* Stat */}
                   <div className="flex items-center gap-1.5">
-                    <CheckCircle size={12} style={{ color: card.badgeColor === "#dc2626" ? "#fca5a5" : card.badgeColor === "#2563eb" ? "#93c5fd" : card.badgeColor === "#ea580c" ? "#fdba74" : "#6ee7b7" }} />
-                    <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.5)" }}>{card.stats}</span>
+                    <CheckCircle size={14} style={{ color: card.badgeColor === "#dc2626" ? "#fca5a5" : card.badgeColor === "#2563eb" ? "#93c5fd" : card.badgeColor === "#ea580c" ? "#fdba74" : "#6ee7b7" }} />
+                    <span style={{ fontSize: "12px", color: styles.textMuted }}>{card.stats}</span>
                   </div>
 
                   {/* Arrow */}
@@ -364,12 +362,12 @@ export function Landing() {
             </Link>
             <Link
               to="/register"
-              className="flex items-center gap-2 px-6 py-3.5 rounded-2xl font-semibold transition-all hover:bg-white/10"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-2xl font-semibold transition-all hover:scale-105"
               style={{
-                background: "rgba(255,255,255,0.08)",
-                border: "1px solid rgba(255,255,255,0.15)",
+                background: styles.cardBg,
+                border: `1px solid ${styles.cardBorder}`,
                 fontSize: "14px",
-                color: "white",
+                color: styles.textPrimary,
               }}
             >
               Register in 5 minutes
@@ -438,10 +436,8 @@ export function Landing() {
               whileHover={{ y: -4 }}
               className="rounded-2xl p-5 relative overflow-hidden group cursor-pointer"
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: item.urgency === "critical"
-                  ? "1px solid rgba(220,38,38,0.3)"
-                  : "1px solid rgba(234,179,8,0.2)",
+                background: styles.cardBg,
+                border: `1px solid ${item.urgency === "critical" ? "rgba(220,38,38,0.3)" : "rgba(234,179,8,0.2)"}`,
                 backdropFilter: "blur(10px)",
               }}
             >
@@ -495,14 +491,14 @@ export function Landing() {
               </div>
 
               <div className="rounded-xl px-3 py-2 mb-3"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.6)" }}>Urgently needs</p>
-                <p style={{ fontSize: "16px", fontWeight: 800, color: "white" }}>{item.need}</p>
+                style={{ background: styles.isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.02)", border: `1px solid ${styles.cardBorder}` }}>
+                <p style={{ fontSize: "14px", color: styles.textMuted }}>Urgently needs</p>
+                <p style={{ fontSize: "18px", fontWeight: 800, color: styles.textPrimary }}>{item.need}</p>
               </div>
 
               <div className="flex items-center gap-1 mb-3">
-                <MapPin size={11} style={{ color: "rgba(148,163,184,0.5)" }} />
-                <span style={{ fontSize: "11px", color: "rgba(148,163,184,0.6)" }}>{item.location}</span>
+                <MapPin size={13} style={{ color: styles.textMuted }} />
+                <span style={{ fontSize: "13px", color: styles.textMuted }}>{item.location}</span>
               </div>
 
               <Link
@@ -544,24 +540,24 @@ export function Landing() {
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
                   <Award size={14} className="text-blue-400" />
-                  <span style={{ fontSize: "11px", color: "#93c5fd", fontWeight: 600, letterSpacing: "0.08em" }}>
+                  <span style={{ fontSize: "13px", color: styles.textPrimary, fontWeight: 600, letterSpacing: "0.08em" }}>
                     LEGALLY COMPLIANT PLATFORM
                   </span>
                 </div>
-                <h3 style={{ fontSize: "22px", fontWeight: 700, color: "white", marginBottom: "8px" }}>
+                <h3 style={{ fontSize: "24px", fontWeight: 700, color: styles.textPrimary, marginBottom: "8px" }}>
                   {t("compliance.title")}
                 </h3>
-                <p style={{ fontSize: "14px", color: "rgba(148,163,184,0.85)", lineHeight: 1.7, maxWidth: "560px" }}>
+                <p style={{ fontSize: "16px", color: styles.textSecondary, lineHeight: 1.7, maxWidth: "560px" }}>
                   {t("compliance.body")} All organ matches are routed through{" "}
-                  <span className="text-blue-400 font-semibold">NOTTO (National Organ and Tissue Transplant Organization)</span>.
+                  <span className="text-blue-500 font-semibold">NOTTO (National Organ and Tissue Transplant Organization)</span>.
                   Trading organs is illegal under THOTA 1994 and punishable by law.
                 </p>
               </div>
               <div className="flex flex-col gap-3">
                 {["NOTTO Affiliated", "THOTA 1994 Compliant", "PDPA 2023 Secure"].map((item) => (
                   <div key={item} className="flex items-center gap-2">
-                    <CheckCircle size={14} className="text-green-400" />
-                    <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.8)" }}>{item}</span>
+                    <CheckCircle size={16} className="text-green-500" />
+                    <span style={{ fontSize: "15px", color: styles.textSecondary }}>{item}</span>
                   </div>
                 ))}
               </div>
@@ -592,29 +588,29 @@ export function Landing() {
               transition={{ delay: i * 0.1 }}
               className="rounded-3xl p-6"
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: styles.cardBg,
+                border: `1px solid ${styles.cardBorder}`,
                 backdropFilter: "blur(10px)",
               }}
             >
               <div className="flex gap-0.5 mb-4">
                 {Array(5).fill(0).map((_, j) => (
-                  <span key={j} style={{ color: "#fbbf24", fontSize: "14px" }}>★</span>
+                  <span key={j} style={{ color: "#fbbf24", fontSize: "16px" }}>★</span>
                 ))}
               </div>
-              <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.8)", lineHeight: 1.7, marginBottom: "20px", fontStyle: "italic" }}>
+              <p style={{ fontSize: "16px", color: styles.textSecondary, lineHeight: 1.7, marginBottom: "20px", fontStyle: "italic" }}>
                 "{t.text}"
               </p>
               <div className="flex items-center gap-3">
                 <ImageWithFallback
                   src={t.img}
                   alt={t.name}
-                  className="w-10 h-10 rounded-full object-cover"
-                  style={{ border: "2px solid rgba(255,255,255,0.1)" }}
+                  className="w-12 h-12 rounded-full object-cover"
+                  style={{ border: `2px solid ${styles.cardBorder}` }}
                 />
                 <div>
-                  <p style={{ fontSize: "14px", fontWeight: 700, color: "white" }}>{t.name}</p>
-                  <p style={{ fontSize: "11px", color: "rgba(148,163,184,0.7)" }}>{t.role} · {t.location}</p>
+                  <p style={{ fontSize: "16px", fontWeight: 700, color: styles.textPrimary }}>{t.name}</p>
+                  <p style={{ fontSize: "13px", color: styles.textMuted }}>{t.role} · {t.location}</p>
                 </div>
               </div>
             </motion.div>
@@ -659,16 +655,16 @@ export function Landing() {
               >
                 <Link to={feat.href}
                   className="block rounded-2xl p-5 h-full group transition-all"
-                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
+                  style={{ background: styles.cardBg, border: `1px solid ${styles.cardBorder}` }}>
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-3"
                     style={{ background: feat.gradient }}>
                     <span style={{ color: "white" }}>{feat.icon}</span>
                   </div>
-                  <h3 style={{ fontSize: "15px", fontWeight: 700, color: "white", marginBottom: "4px" }}>{feat.title}</h3>
-                  <p style={{ fontSize: "12px", color: "rgba(148,163,184,0.7)", lineHeight: 1.5 }}>{feat.sub}</p>
+                  <h3 style={{ fontSize: "16px", fontWeight: 700, color: styles.textPrimary, marginBottom: "4px" }}>{feat.title}</h3>
+                  <p style={{ fontSize: "14px", color: styles.textMuted, lineHeight: 1.5 }}>{feat.sub}</p>
                   <div className="mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
-                    <span style={{ fontSize: "12px", color: feat.color, fontWeight: 600 }}>Explore</span>
-                    <ArrowRight size={12} style={{ color: feat.color }} />
+                    <span style={{ fontSize: "14px", color: feat.color, fontWeight: 600 }}>Explore</span>
+                    <ArrowRight size={14} style={{ color: feat.color }} />
                   </div>
                 </Link>
               </motion.div>
@@ -716,33 +712,6 @@ export function Landing() {
           </p>
         </motion.div>
       </section>
-
-      {/* ═══ FOOTER ═══ */}
-      <footer style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "24px 16px" }}>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Heart size={14} fill="#dc2626" color="#dc2626" />
-            <span style={{ fontSize: "13px", color: "rgba(148,163,184,0.7)" }}>
-              JivanSetu · {t("footer.tagline")}
-            </span>
-          </div>
-          <p style={{ fontSize: "12px", color: "rgba(148,163,184,0.5)", textAlign: "center" }}>
-            {t("footer.emergency")}
-          </p>
-          <div className="flex items-center gap-4">
-            {[
-              { label: "Privacy", href: "/privacy" },
-              { label: "Terms", href: "/terms" },
-              { label: "Contact", href: "/contact" },
-              { label: "NOTTO", href: "/notto-guide" },
-            ].map((item) => (
-              <Link key={item.label} to={item.href} style={{ fontSize: "12px", color: "rgba(148,163,184,0.5)" }} className="hover:text-white/70 transition-colors">
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

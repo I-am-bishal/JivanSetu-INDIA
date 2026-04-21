@@ -5,6 +5,7 @@ import {
   AlertTriangle, MapPin, Clock, Heart, Droplets, Filter, Search,
   Phone, ArrowRight, Activity, ChevronDown, CheckCircle
 } from "lucide-react";
+import { useThemeStyles } from "../ThemeContext";
 
 type SeverityType = "critical" | "high" | "moderate";
 type NeedType = "organ" | "blood";
@@ -89,8 +90,8 @@ function SOSCard({ request }: { request: SOSRequest }) {
               </div>
             )}
           </div>
-          <div className="flex items-center gap-1" style={{ color: "rgba(148,163,184,0.6)", fontSize: "11px" }}>
-            <Clock size={11} />
+          <div className="flex items-center gap-1" style={{ color: "var(--foreground)", opacity: 0.6, fontSize: "13px" }}>
+            <Clock size={13} />
             {request.timeAgo}
           </div>
         </div>
@@ -111,34 +112,34 @@ function SOSCard({ request }: { request: SOSRequest }) {
             }
           </div>
           <div className="flex-1 min-w-0">
-            <p style={{ fontSize: "16px", fontWeight: 700, color: "white", lineHeight: 1.2 }}>
+            <p style={{ fontSize: "18px", fontWeight: 700, color: "inherit", lineHeight: 1.2 }}>
               {request.name}, <span style={{ fontWeight: 400 }}>{request.age} yrs</span>
             </p>
-            <p style={{ fontSize: "12px", color: "rgba(148,163,184,0.7)" }}>{request.hospital}</p>
+            <p style={{ fontSize: "14px", color: "inherit", opacity: 0.7 }}>{request.hospital}</p>
           </div>
           <div
             className="flex-shrink-0 px-3 py-1.5 rounded-xl text-center"
-            style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)", minWidth: "60px" }}
+            style={{ background: "rgba(128,128,128,0.1)", border: "1px solid rgba(128,128,128,0.2)", minWidth: "60px" }}
           >
-            <p style={{ fontSize: "16px", fontWeight: 800, color: "white", lineHeight: 1 }}>{request.need}</p>
+            <p style={{ fontSize: "16px", fontWeight: 800, color: "inherit", lineHeight: 1 }}>{request.need}</p>
           </div>
         </div>
 
         {/* Location & Distance */}
         <div className="flex items-center gap-3 mb-4 text-sm">
           <div className="flex items-center gap-1.5">
-            <MapPin size={12} style={{ color: "rgba(148,163,184,0.5)" }} />
-            <span style={{ fontSize: "12px", color: "rgba(148,163,184,0.7)" }}>{request.city}, {request.state}</span>
+            <MapPin size={14} style={{ color: "var(--foreground)", opacity: 0.5 }} />
+            <span style={{ fontSize: "14px", color: "var(--foreground)", opacity: 0.7 }}>{request.city}, {request.state}</span>
           </div>
-          <div className="h-3 w-px bg-white/10" />
+          <div className="h-3 w-px" style={{ background: "var(--foreground)", opacity: 0.1 }} />
           <div className="flex items-center gap-1.5">
-            <Activity size={12} style={{ color: "rgba(148,163,184,0.5)" }} />
-            <span style={{ fontSize: "12px", color: "rgba(148,163,184,0.7)" }}>{request.distance} km away</span>
+            <Activity size={14} style={{ color: "var(--foreground)", opacity: 0.5 }} />
+            <span style={{ fontSize: "14px", color: "var(--foreground)", opacity: 0.7 }}>{request.distance} km away</span>
           </div>
         </div>
 
         {/* Note */}
-        <p style={{ fontSize: "12.5px", color: "rgba(255,255,255,0.6)", lineHeight: 1.5, marginBottom: "12px" }}>
+        <p style={{ fontSize: "14px", color: "var(--foreground)", opacity: 0.8, lineHeight: 1.5, marginBottom: "12px" }}>
           {request.note}
         </p>
 
@@ -148,11 +149,11 @@ function SOSCard({ request }: { request: SOSRequest }) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             className="rounded-xl p-3 mb-3"
-            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
+            style={{ background: "rgba(128,128,128,0.1)", border: "1px solid rgba(128,128,128,0.2)" }}
           >
-            <p style={{ fontSize: "11px", color: "rgba(148,163,184,0.6)", marginBottom: "4px" }}>Contact Nodal Officer</p>
-            <p style={{ fontSize: "14px", fontWeight: 600, color: "white" }}>{request.contactName}</p>
-            <p style={{ fontSize: "13px", color: "#93c5fd" }}>{request.contactPhone}</p>
+            <p style={{ fontSize: "13px", color: "var(--foreground)", opacity: 0.6, marginBottom: "4px" }}>Contact Nodal Officer</p>
+            <p style={{ fontSize: "16px", fontWeight: 600, color: "inherit" }}>{request.contactName}</p>
+            <p style={{ fontSize: "15px", color: "#2563eb" }}>{request.contactPhone}</p>
           </motion.div>
         )}
 
@@ -160,12 +161,12 @@ function SOSCard({ request }: { request: SOSRequest }) {
         <div className="flex gap-2">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all text-white/60 hover:text-white hover:bg-white/8"
-            style={{ fontSize: "12px", border: "1px solid rgba(255,255,255,0.08)", flex: 1 }}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all"
+            style={{ fontSize: "14px", border: "1px solid rgba(128,128,128,0.2)", flex: 1, color: "var(--foreground)" }}
           >
-            <Phone size={12} />
+            <Phone size={14} />
             {expanded ? "Hide Contact" : "Show Contact"}
-            <ChevronDown size={11} className={`ml-auto transition-transform ${expanded ? "rotate-180" : ""}`} />
+            <ChevronDown size={14} className={`ml-auto transition-transform ${expanded ? "rotate-180" : ""}`} />
           </button>
           <Link
             to={`/register?type=${request.type === "blood" ? "blood-donor" : "organ-donor"}`}
@@ -189,6 +190,7 @@ export function UrgencyDashboard() {
   const [filter, setFilter] = useState<"all" | "blood" | "organ">("all");
   const [severityFilter, setSeverityFilter] = useState<"all" | SeverityType>("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const styles = useThemeStyles();
 
   const filtered = SOS_DATA.filter((r) => {
     if (filter !== "all" && r.type !== filter) return false;
@@ -200,7 +202,7 @@ export function UrgencyDashboard() {
   const criticalCount = SOS_DATA.filter((r) => r.severity === "critical").length;
 
   return (
-    <div className="min-h-screen py-8 px-4" style={{ background: "#060d1f" }}>
+    <div className="min-h-screen py-8 px-4 transition-colors duration-300" style={{ background: styles.pageBg, color: styles.textPrimary }}>
       <div className="max-w-6xl mx-auto">
 
         {/* Page Header */}
@@ -216,10 +218,10 @@ export function UrgencyDashboard() {
           </div>
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 800, color: "white", marginBottom: "4px" }}>
+              <h1 style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 800, color: styles.textPrimary, marginBottom: "4px" }}>
                 Active Emergency Requests
               </h1>
-              <p style={{ fontSize: "14px", color: "rgba(148,163,184,0.7)" }}>
+              <p style={{ fontSize: "16px", color: styles.textSecondary }}>
                 {SOS_DATA.length} active requests · {criticalCount} critical · Real-time nationwide feed
               </p>
             </div>
@@ -227,12 +229,12 @@ export function UrgencyDashboard() {
             {/* Critical Alert Box */}
             <div
               className="flex items-center gap-3 px-5 py-3 rounded-2xl"
-              style={{ background: "rgba(220,38,38,0.12)", border: "1px solid rgba(220,38,38,0.3)" }}
+              style={{ background: styles.isDark ? "rgba(220,38,38,0.12)" : "rgba(220,38,38,0.05)", border: "1px solid rgba(220,38,38,0.3)" }}
             >
-              <AlertTriangle size={18} className="text-red-400" />
+              <AlertTriangle size={20} className="text-red-500" />
               <div>
-                <p style={{ fontSize: "13px", fontWeight: 700, color: "#fca5a5" }}>{criticalCount} Critical Cases</p>
-                <p style={{ fontSize: "11px", color: "rgba(248,113,113,0.7)" }}>Need response in &lt;24 hours</p>
+                <p style={{ fontSize: "15px", fontWeight: 700, color: "#ef4444" }}>{criticalCount} Critical Cases</p>
+                <p style={{ fontSize: "13px", color: styles.isDark ? "rgba(248,113,113,0.7)" : "#b91c1c" }}>Need response in &lt;24 hours</p>
               </div>
             </div>
           </div>
@@ -242,14 +244,14 @@ export function UrgencyDashboard() {
         <div className="flex flex-col sm:flex-row gap-3 mb-6">
           {/* Search */}
           <div className="relative flex-1">
-            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30" />
+            <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: styles.textMuted }} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name, city, or blood type..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl outline-none text-white placeholder-white/30"
-              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", fontSize: "13.5px" }}
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl outline-none"
+              style={{ background: styles.inputBg, border: `1px solid ${styles.inputBorder}`, color: styles.inputText, fontSize: "15px" }}
             />
           </div>
 
@@ -261,11 +263,11 @@ export function UrgencyDashboard() {
                 onClick={() => setFilter(f)}
                 className="px-4 py-2 rounded-xl capitalize transition-all"
                 style={{
-                  fontSize: "13px",
-                  fontWeight: filter === f ? 600 : 400,
-                  background: filter === f ? (f === "blood" ? "rgba(220,38,38,0.2)" : f === "organ" ? "rgba(37,99,235,0.2)" : "rgba(255,255,255,0.1)") : "rgba(255,255,255,0.04)",
-                  border: filter === f ? (f === "blood" ? "1px solid rgba(220,38,38,0.4)" : f === "organ" ? "1px solid rgba(37,99,235,0.4)" : "1px solid rgba(255,255,255,0.2)") : "1px solid rgba(255,255,255,0.08)",
-                  color: filter === f ? "white" : "rgba(255,255,255,0.5)",
+                  fontSize: "14px",
+                  fontWeight: filter === f ? 600 : 500,
+                  background: filter === f ? (f === "blood" ? "rgba(220,38,38,0.15)" : f === "organ" ? "rgba(37,99,235,0.15)" : styles.badgeBg) : styles.inputBg,
+                  border: filter === f ? (f === "blood" ? "1px solid rgba(220,38,38,0.4)" : f === "organ" ? "1px solid rgba(37,99,235,0.4)" : `1px solid ${styles.badgeBorder}`) : `1px solid ${styles.inputBorder}`,
+                  color: filter === f ? (styles.isDark ? "white" : "black") : styles.textSecondary,
                 }}
               >
                 {f === "all" ? "All" : f.charAt(0).toUpperCase() + f.slice(1)}
@@ -281,13 +283,13 @@ export function UrgencyDashboard() {
                 onClick={() => setSeverityFilter(s)}
                 className="px-3 py-2 rounded-xl capitalize transition-all"
                 style={{
-                  fontSize: "12px",
-                  fontWeight: severityFilter === s ? 600 : 400,
+                  fontSize: "13px",
+                  fontWeight: severityFilter === s ? 600 : 500,
                   background: severityFilter === s && s !== "all"
-                    ? (s === "critical" ? "rgba(220,38,38,0.2)" : s === "high" ? "rgba(217,119,6,0.2)" : "rgba(5,150,105,0.2)")
-                    : severityFilter === s ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.04)",
-                  border: severityFilter === s ? "1px solid rgba(255,255,255,0.2)" : "1px solid rgba(255,255,255,0.06)",
-                  color: severityFilter === s ? "white" : "rgba(255,255,255,0.4)",
+                    ? (s === "critical" ? "rgba(220,38,38,0.15)" : s === "high" ? "rgba(217,119,6,0.15)" : "rgba(5,150,105,0.15)")
+                    : severityFilter === s ? styles.badgeBg : styles.inputBg,
+                  border: severityFilter === s ? `1px solid ${styles.badgeBorder}` : `1px solid ${styles.inputBorder}`,
+                  color: severityFilter === s ? (styles.isDark ? "white" : "black") : styles.textSecondary,
                   display: s === "all" ? "flex" : undefined,
                   alignItems: s === "all" ? "center" : undefined,
                   gap: s === "all" ? "4px" : undefined,
@@ -301,7 +303,7 @@ export function UrgencyDashboard() {
         </div>
 
         {/* Results count */}
-        <p style={{ fontSize: "12px", color: "rgba(148,163,184,0.5)", marginBottom: "16px" }}>
+        <p style={{ fontSize: "14px", color: styles.textMuted, marginBottom: "16px" }}>
           Showing {filtered.length} of {SOS_DATA.length} requests
         </p>
 
@@ -314,8 +316,8 @@ export function UrgencyDashboard() {
 
         {filtered.length === 0 && (
           <div className="text-center py-20">
-            <Search size={40} className="text-white/20 mx-auto mb-4" />
-            <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.5)" }}>No requests match your filters</p>
+            <Search size={40} className="mx-auto mb-4" style={{ color: styles.textMuted }} />
+            <p style={{ fontSize: "16px", color: styles.textSecondary }}>No requests match your filters</p>
           </div>
         )}
 

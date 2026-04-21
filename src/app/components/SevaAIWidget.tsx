@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "motion/react";
 import { MessageCircle, X, Send, Sparkles, MapPin, FileText, UserCheck, Loader } from "lucide-react";
+import { useThemeStyles } from "../ThemeContext";
 
 type Message = {
   id: string;
@@ -33,6 +34,7 @@ function getSevaResponse(input: string): string {
 
 export function SevaAIWidget() {
   const { t } = useTranslation();
+  const styles = useThemeStyles();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -94,8 +96,8 @@ export function SevaAIWidget() {
               <span className="absolute -top-1.5 -right-1.5 w-2.5 h-2.5 rounded-full bg-green-400 border-2 border-blue-800"></span>
             </div>
             <div className="flex flex-col items-start">
-              <span style={{ fontSize: "13px", fontWeight: 700, lineHeight: 1.1 }}>Seva AI</span>
-              <span style={{ fontSize: "10px", opacity: 0.8, lineHeight: 1 }}>Ask me anything</span>
+              <span style={{ fontSize: "15px", fontWeight: 700, lineHeight: 1.1 }}>Seva AI</span>
+              <span style={{ fontSize: "12px", opacity: 0.8, lineHeight: 1 }}>Ask me anything</span>
             </div>
           </motion.button>
         )}
@@ -111,12 +113,12 @@ export function SevaAIWidget() {
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className="fixed bottom-6 right-6 z-50 flex flex-col rounded-3xl overflow-hidden"
             style={{
-              width: "min(390px, calc(100vw - 24px))",
-              height: "min(580px, calc(100vh - 100px))",
-              background: "rgba(8, 16, 36, 0.95)",
+              width: "min(400px, calc(100vw - 24px))",
+              height: "min(600px, calc(100vh - 100px))",
+              background: styles.dropdownBg,
               backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              boxShadow: "0 25px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(37,99,235,0.2)",
+              border: `1px solid ${styles.dropdownBorder}`,
+              boxShadow: styles.dropdownShadow,
             }}
           >
             {/* Header */}
@@ -135,17 +137,17 @@ export function SevaAIWidget() {
                   <Sparkles size={18} color="white" />
                 </div>
                 <div>
-                  <p style={{ fontSize: "15px", fontWeight: 700, color: "white", lineHeight: 1.2 }}>
+                  <p style={{ fontSize: "16px", fontWeight: 700, color: "white", lineHeight: 1.2 }}>
                     {t("sevaAI.name")}
                   </p>
-                  <p style={{ fontSize: "11px", color: "rgba(147,197,253,0.9)", lineHeight: 1 }}>
+                  <p style={{ fontSize: "13px", color: "rgba(147,197,253,0.9)", lineHeight: 1 }}>
                     {isTyping ? t("sevaAI.typing") : "● Online · Powered by RAG AI"}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-all"
+                className="w-8 h-8 rounded-full flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
               >
                 <X size={16} />
               </button>
@@ -176,14 +178,14 @@ export function SevaAIWidget() {
                       background:
                         msg.role === "user"
                           ? "linear-gradient(135deg, #1e40af, #2563eb)"
-                          : "rgba(255,255,255,0.07)",
-                      border: msg.role === "assistant" ? "1px solid rgba(255,255,255,0.08)" : "none",
+                          : styles.inputBg,
+                      border: msg.role === "assistant" ? `1px solid ${styles.cardBorder}` : "none",
                     }}
                   >
                     <p
                       style={{
-                        fontSize: "13.5px",
-                        color: "rgba(255,255,255,0.92)",
+                        fontSize: "15px",
+                        color: msg.role === "user" ? "white" : styles.textPrimary,
                         lineHeight: 1.6,
                         whiteSpace: "pre-line",
                       }}
@@ -204,7 +206,7 @@ export function SevaAIWidget() {
                   </div>
                   <div
                     className="rounded-2xl rounded-tl-sm px-4 py-3"
-                    style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.08)" }}
+                    style={{ background: styles.inputBg, border: `1px solid ${styles.cardBorder}` }}
                   >
                     <div className="flex gap-1.5 items-center h-4">
                       {[0, 1, 2].map((i) => (
@@ -222,7 +224,7 @@ export function SevaAIWidget() {
               {/* Quick Suggestions (show only on first message) */}
               {messages.length === 1 && !isTyping && (
                 <div className="flex flex-col gap-2 mt-1">
-                  <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", textAlign: "center" }}>
+                  <p style={{ fontSize: "13px", color: styles.textMuted, textAlign: "center" }}>
                     Quick questions
                   </p>
                   {suggestions.map((s, i) => (
@@ -231,10 +233,10 @@ export function SevaAIWidget() {
                       onClick={() => sendMessage(s)}
                       className="text-left px-3.5 py-2.5 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98]"
                       style={{
-                        background: "rgba(255,255,255,0.05)",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        fontSize: "12.5px",
-                        color: "rgba(255,255,255,0.8)",
+                        background: styles.cardBg,
+                        border: `1px solid ${styles.cardBorder}`,
+                        fontSize: "14px",
+                        color: styles.textSecondary,
                       }}
                     >
                       {s}
@@ -258,10 +260,10 @@ export function SevaAIWidget() {
                   onClick={() => sendMessage(chip.label)}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-full flex-shrink-0 transition-all hover:opacity-80"
                   style={{
-                    background: "rgba(37,99,235,0.2)",
-                    border: "1px solid rgba(37,99,235,0.4)",
-                    fontSize: "11px",
-                    color: "#93c5fd",
+                    background: "rgba(37,99,235,0.1)",
+                    border: "1px solid rgba(37,99,235,0.3)",
+                    fontSize: "13px",
+                    color: styles.isDark ? "#93c5fd" : "#2563eb",
                     fontWeight: 500,
                   }}
                 >
@@ -274,7 +276,7 @@ export function SevaAIWidget() {
             {/* Input */}
             <div
               className="flex items-center gap-2 px-4 py-3 flex-shrink-0"
-              style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+              style={{ borderTop: `1px solid ${styles.cardBorder}` }}
             >
               <input
                 ref={inputRef}
@@ -283,8 +285,8 @@ export function SevaAIWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && sendMessage(input)}
                 placeholder={t("sevaAI.placeholder")}
-                className="flex-1 bg-transparent outline-none text-white placeholder-white/30"
-                style={{ fontSize: "13.5px" }}
+                className="flex-1 bg-transparent outline-none"
+                style={{ fontSize: "15px", color: styles.textPrimary }}
               />
               <button
                 onClick={() => sendMessage(input)}

@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Link } from "react-router";
 import { Heart, Droplets, MapPin, Award, ArrowRight, Filter, Quote, Star, ChevronDown } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { useThemeStyles } from "../ThemeContext";
 
 type Story = {
   id: number;
@@ -104,13 +105,14 @@ const IMPACT_STATS = [
 export function SuccessStories() {
   const [filter, setFilter] = useState<"all" | "organ" | "blood">("all");
   const [showAll, setShowAll] = useState(false);
+  const styles = useThemeStyles();
 
   const filtered = STORIES.filter((s) => filter === "all" || s.type === filter);
   const displayed = showAll ? filtered : filtered.slice(0, 6);
   const featuredStory = STORIES.find((s) => s.featured);
 
   return (
-    <div className="min-h-screen py-12 px-4" style={{ background: "#060d1f", color: "white" }}>
+    <div className="min-h-screen py-12 px-4 transition-colors duration-300" style={{ background: styles.pageBg, color: styles.textPrimary }}>
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
@@ -136,13 +138,13 @@ export function SuccessStories() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 + i * 0.05 }}
               className="rounded-2xl p-4 text-center"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-2"
+              style={{ background: styles.cardBg, border: `1px solid ${styles.cardBorder}` }}>
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-2"
                 style={{ background: `${stat.color}20`, color: stat.color }}>
                 {stat.icon}
               </div>
-              <p style={{ fontSize: "22px", fontWeight: 800, color: "white" }}>{stat.value}</p>
-              <p style={{ fontSize: "11px", color: "rgba(148,163,184,0.6)" }}>{stat.label}</p>
+              <p style={{ fontSize: "26px", fontWeight: 800, color: styles.textPrimary }}>{stat.value}</p>
+              <p style={{ fontSize: "14px", color: styles.textMuted }}>{stat.label}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -154,7 +156,7 @@ export function SuccessStories() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="rounded-3xl overflow-hidden mb-10"
-            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)" }}
+            style={{ background: styles.cardBg, border: `1px solid ${styles.cardBorder}` }}
           >
             <div className="flex flex-col md:flex-row">
               <div className="md:w-2/5 h-48 md:h-auto relative">
@@ -175,21 +177,21 @@ export function SuccessStories() {
                   </span>
                   <span style={{ fontSize: "11px", color: "rgba(148,163,184,0.5)" }}>{featuredStory.date}</span>
                 </div>
-                <h2 style={{ fontSize: "20px", fontWeight: 700, color: "white", lineHeight: 1.3, marginBottom: "12px" }}>
+                <h2 style={{ fontSize: "24px", fontWeight: 700, color: styles.textPrimary, lineHeight: 1.3, marginBottom: "12px" }}>
                   {featuredStory.title}
                 </h2>
-                <p style={{ fontSize: "13px", color: "rgba(148,163,184,0.75)", lineHeight: 1.8, marginBottom: "16px" }}>
+                <p style={{ fontSize: "16px", color: styles.textSecondary, lineHeight: 1.8, marginBottom: "16px" }}>
                   {featuredStory.story}
                 </p>
-                <div className="flex items-start gap-2 px-4 py-3 rounded-xl" style={{ background: "rgba(37,99,235,0.08)", border: "1px solid rgba(37,99,235,0.2)" }}>
+                <div className="flex items-start gap-2 px-4 py-3 rounded-xl" style={{ background: styles.isDark ? "rgba(37,99,235,0.08)" : "rgba(37,99,235,0.05)", border: "1px solid rgba(37,99,235,0.2)" }}>
                   <Quote size={14} className="text-blue-400 flex-shrink-0 mt-0.5" />
                   <p style={{ fontSize: "13px", color: "#93c5fd", fontStyle: "italic", lineHeight: 1.5 }}>
                     "{featuredStory.quote}"
                   </p>
                 </div>
                 <div className="flex items-center gap-2 mt-4">
-                  <span style={{ fontSize: "14px", fontWeight: 700, color: "white" }}>{featuredStory.name}</span>
-                  <span style={{ fontSize: "12px", color: "rgba(148,163,184,0.5)" }}>· {featuredStory.location}</span>
+                  <span style={{ fontSize: "16px", fontWeight: 700, color: styles.textPrimary }}>{featuredStory.name}</span>
+                  <span style={{ fontSize: "14px", color: styles.textMuted }}>· {featuredStory.location}</span>
                 </div>
               </div>
             </div>
@@ -208,10 +210,10 @@ export function SuccessStories() {
               onClick={() => setFilter(tab.key as any)}
               className="flex items-center gap-1.5 px-4 py-2 rounded-full transition-all"
               style={{
-                background: filter === tab.key ? "rgba(37,99,235,0.15)" : "rgba(255,255,255,0.04)",
-                border: filter === tab.key ? "1px solid rgba(37,99,235,0.3)" : "1px solid rgba(255,255,255,0.08)",
-                color: filter === tab.key ? "#93c5fd" : "rgba(255,255,255,0.5)",
-                fontSize: "13px", fontWeight: 600,
+                background: filter === tab.key ? styles.badgeBg : (styles.isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)"),
+                border: filter === tab.key ? `1px solid ${styles.badgeBorder}` : `1px solid ${styles.cardBorder}`,
+                color: filter === tab.key ? styles.textLabel : styles.textMuted,
+                fontSize: "14px", fontWeight: 600,
               }}
             >
               {tab.icon} {tab.label}
@@ -229,7 +231,7 @@ export function SuccessStories() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
               className="rounded-2xl overflow-hidden group"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+              style={{ background: styles.cardBg, border: `1px solid ${styles.cardBorder}` }}
             >
               <div className="relative h-44 overflow-hidden">
                 <ImageWithFallback src={story.img} alt={story.name}
@@ -247,29 +249,29 @@ export function SuccessStories() {
                 </div>
               </div>
               <div className="p-5">
-                <h3 style={{ fontSize: "14px", fontWeight: 700, color: "white", lineHeight: 1.4, marginBottom: "8px", minHeight: "40px" }}>
+                <h3 style={{ fontSize: "16px", fontWeight: 700, color: styles.textPrimary, lineHeight: 1.4, marginBottom: "8px", minHeight: "40px" }}>
                   {story.title}
                 </h3>
-                <p style={{ fontSize: "12px", color: "rgba(148,163,184,0.65)", lineHeight: 1.6, marginBottom: "12px" }}
+                <p style={{ fontSize: "14px", color: styles.textSecondary, lineHeight: 1.6, marginBottom: "12px" }}
                   className="line-clamp-3">
                   {story.story}
                 </p>
-                <div className="flex items-start gap-2 px-3 py-2 rounded-lg mb-3" style={{ background: "rgba(37,99,235,0.06)" }}>
-                  <Quote size={10} className="text-blue-400 flex-shrink-0 mt-1" />
-                  <p style={{ fontSize: "11px", color: "#93c5fd", fontStyle: "italic", lineHeight: 1.4 }}
+                <div className="flex items-start gap-2 px-3 py-2 rounded-lg mb-3" style={{ background: styles.isDark ? "rgba(37,99,235,0.06)" : "rgba(37,99,235,0.03)" }}>
+                  <Quote size={12} className="text-blue-400 flex-shrink-0 mt-1" />
+                  <p style={{ fontSize: "13px", color: styles.textLabel, fontStyle: "italic", lineHeight: 1.4 }}
                     className="line-clamp-2">
                     "{story.quote}"
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <p style={{ fontSize: "12px", fontWeight: 600, color: "rgba(255,255,255,0.8)" }}>{story.name}, {story.age}</p>
-                    <p className="flex items-center gap-1" style={{ fontSize: "11px", color: "rgba(148,163,184,0.5)" }}>
-                      <MapPin size={10} /> {story.location} · {story.date}
+                    <p style={{ fontSize: "14px", fontWeight: 600, color: styles.textPrimary }}>{story.name}, {story.age}</p>
+                    <p className="flex items-center gap-1" style={{ fontSize: "13px", color: styles.textMuted }}>
+                      <MapPin size={12} /> {story.location} · {story.date}
                     </p>
                   </div>
                   <div className="flex gap-0.5">
-                    {Array(5).fill(0).map((_, j) => <Star key={j} size={10} fill="#fbbf24" color="#fbbf24" />)}
+                    {Array(5).fill(0).map((_, j) => <Star key={j} size={12} fill="#fbbf24" color="#fbbf24" />)}
                   </div>
                 </div>
               </div>
@@ -281,8 +283,8 @@ export function SuccessStories() {
         {filtered.length > 6 && !showAll && (
           <div className="text-center mb-10">
             <button onClick={() => setShowAll(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl transition-all hover:bg-white/[0.06]"
-              style={{ border: "1px solid rgba(255,255,255,0.12)", fontSize: "13px", color: "rgba(255,255,255,0.7)", fontWeight: 600 }}>
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl transition-all"
+              style={{ border: `1px solid ${styles.cardBorder}`, fontSize: "14px", color: styles.textSecondary, fontWeight: 600 }}>
               Show More Stories <ChevronDown size={14} />
             </button>
           </div>
@@ -300,8 +302,8 @@ export function SuccessStories() {
           }}
         >
           <Heart size={28} className="text-red-400 mx-auto mb-4" />
-          <h2 style={{ fontSize: "22px", fontWeight: 800, color: "white", marginBottom: "8px" }}>Share Your Story</h2>
-          <p style={{ fontSize: "14px", color: "rgba(148,163,184,0.75)", maxWidth: "450px", margin: "0 auto 20px", lineHeight: 1.7 }}>
+          <h2 style={{ fontSize: "26px", fontWeight: 800, color: "white", marginBottom: "8px" }}>Share Your Story</h2>
+          <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.85)", maxWidth: "450px", margin: "0 auto 20px", lineHeight: 1.7 }}>
             Has JivanSetu touched your life? Your story can inspire thousands to become donors and save lives.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
