@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import {
   Heart, Droplets, ArrowRight, Shield, Award, MapPin,
   Users, Activity, CheckCircle, ChevronRight, Zap, Clock,
-  Bell, ScanLine, Stethoscope, Scale
+  Bell, ScanLine, Stethoscope, Scale, BarChart3, BookOpen
 } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
@@ -641,8 +641,12 @@ export function Landing() {
               { href: "/alerts", title: "Proximity Alerts", sub: "Get notified when someone nearby needs help", icon: <Bell size={20} />, color: "#3b82f6", gradient: "linear-gradient(135deg, #1e3a8a, #2563eb)" },
               { href: "/report-scanner", title: "Report Scanner", sub: "AI-powered medical report extraction", icon: <ScanLine size={20} />, color: "#a855f7", gradient: "linear-gradient(135deg, #581c87, #7c3aed)" },
               { href: "/doctor-portal", title: "Doctor's Portal", sub: "Verify requests as a medical professional", icon: <Stethoscope size={20} />, color: "#10b981", gradient: "linear-gradient(135deg, #065f46, #059669)" },
+              { href: "/blood-compatibility", title: "Blood Calculator", sub: "Check your blood type compatibility", icon: <Droplets size={20} />, color: "#ec4899", gradient: "linear-gradient(135deg, #831843, #db2777)" },
+              { href: "/blood-banks", title: "Blood Banks", sub: "Find blood banks with live inventory", icon: <Droplets size={20} />, color: "#f97316", gradient: "linear-gradient(135deg, #7c2d12, #ea580c)" },
               { href: "/notto-guide", title: "NOTTO Guide", sub: "Register with India's organ transplant body", icon: <Shield size={20} />, color: "#2563eb", gradient: "linear-gradient(135deg, #1e40af, #3b82f6)" },
               { href: "/pledge-wall", title: "Pledge Wall", sub: "Join the wall of heroes — get your certificate", icon: <Award size={20} />, color: "#dc2626", gradient: "linear-gradient(135deg, #7f1d1d, #dc2626)" },
+              { href: "/statistics", title: "Statistics", sub: "India's donation data visualized", icon: <BarChart3 size={20} />, color: "#6366f1", gradient: "linear-gradient(135deg, #3730a3, #6366f1)" },
+              { href: "/stories", title: "Success Stories", sub: "Real stories of lives changed", icon: <BookOpen size={20} />, color: "#14b8a6", gradient: "linear-gradient(135deg, #134e4a, #14b8a6)" },
               { href: "/legal-faq", title: "Legal FAQ", sub: "THOTA explained in simple terms", icon: <Scale size={20} />, color: "#f59e0b", gradient: "linear-gradient(135deg, #78350f, #b45309)" },
               { href: "/seva-ai", title: "Seva AI", sub: "Your 24/7 AI-powered donation guide", icon: <Heart size={20} />, color: "#ec4899", gradient: "linear-gradient(135deg, #831843, #db2777)" },
             ].map((feat, i) => (
@@ -726,10 +730,15 @@ export function Landing() {
             {t("footer.emergency")}
           </p>
           <div className="flex items-center gap-4">
-            {["Privacy", "Terms", "Contact", "NOTTO"].map((item) => (
-              <a key={item} href="#" style={{ fontSize: "12px", color: "rgba(148,163,184,0.5)" }} className="hover:text-white/70 transition-colors">
-                {item}
-              </a>
+            {[
+              { label: "Privacy", href: "/privacy" },
+              { label: "Terms", href: "/terms" },
+              { label: "Contact", href: "/contact" },
+              { label: "NOTTO", href: "/notto-guide" },
+            ].map((item) => (
+              <Link key={item.label} to={item.href} style={{ fontSize: "12px", color: "rgba(148,163,184,0.5)" }} className="hover:text-white/70 transition-colors">
+                {item.label}
+              </Link>
             ))}
           </div>
         </div>

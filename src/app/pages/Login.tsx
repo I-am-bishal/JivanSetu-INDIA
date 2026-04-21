@@ -78,6 +78,11 @@ export function Login() {
                 }}
               />
             </div>
+            <div className="flex justify-end pt-1">
+              <Link to="/forgot-password" className="text-xs text-blue-400 hover:text-blue-300 font-medium transition-colors">
+                Forgot Password?
+              </Link>
+            </div>
           </div>
 
           <button 

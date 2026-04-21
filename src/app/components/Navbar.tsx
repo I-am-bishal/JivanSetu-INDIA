@@ -2,9 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "./LanguageSelector";
+import { ThemeToggle } from "./ThemeToggle";
+import { NotificationCenter } from "./NotificationCenter";
 import {
   Menu, X, Heart, Activity, ChevronDown, MapPin, Bell, ScanLine,
-  Stethoscope, Shield, Award, Scale
+  Stethoscope, Shield, Award, Scale, Droplets, BarChart3, BookOpen,
+  LayoutDashboard, Phone
 } from "lucide-react";
 
 const MORE_ITEMS = [
@@ -15,6 +18,11 @@ const MORE_ITEMS = [
   { href: "/notto-guide", label: "NOTTO Guide", icon: <Shield size={14} />, color: "#2563eb" },
   { href: "/pledge-wall", label: "Pledge Wall", icon: <Award size={14} />, color: "#dc2626" },
   { href: "/legal-faq", label: "Legal FAQ", icon: <Scale size={14} />, color: "#f59e0b" },
+  { href: "/blood-compatibility", label: "Blood Calculator", icon: <Droplets size={14} />, color: "#ec4899" },
+  { href: "/blood-banks", label: "Blood Banks", icon: <Droplets size={14} />, color: "#f97316" },
+  { href: "/statistics", label: "Statistics", icon: <BarChart3 size={14} />, color: "#6366f1" },
+  { href: "/stories", label: "Success Stories", icon: <BookOpen size={14} />, color: "#14b8a6" },
+  { href: "/contact", label: "Contact Us", icon: <Phone size={14} />, color: "#06b6d4" },
 ];
 
 export function Navbar() {
@@ -26,6 +34,7 @@ export function Navbar() {
 
   const navItems = [
     { href: "/", label: t("nav.home") },
+    { href: "/dashboard", label: "Dashboard" },
     { href: "/urgency", label: t("nav.urgency") },
     { href: "/seva-ai", label: t("nav.sevaAI") },
     { href: "/about", label: t("nav.about") },
@@ -132,12 +141,14 @@ export function Navbar() {
 
               {moreOpen && (
                 <div
-                  className="absolute top-full right-0 mt-2 w-56 rounded-2xl py-2 z-50"
+                  className="absolute top-full right-0 mt-2 w-56 rounded-2xl py-2 z-50 max-h-[70vh] overflow-y-auto"
                   style={{
                     background: "rgba(15,23,42,0.98)",
                     border: "1px solid rgba(255,255,255,0.1)",
                     backdropFilter: "blur(20px)",
                     boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+                    scrollbarWidth: "thin",
+                    scrollbarColor: "rgba(255,255,255,0.1) transparent",
                   }}
                 >
                   {MORE_ITEMS.map((item) => (
@@ -171,7 +182,9 @@ export function Navbar() {
           </div>
 
           {/* Right Actions */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2.5">
+            <ThemeToggle />
+            <NotificationCenter />
             <LanguageSelector />
             <Link
               to="/login"
@@ -237,6 +250,8 @@ export function Navbar() {
           ))}
 
           <div className="flex items-center gap-3 mt-2 pt-2" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+            <ThemeToggle />
+            <NotificationCenter />
             <LanguageSelector />
             <Link
               to="/login"

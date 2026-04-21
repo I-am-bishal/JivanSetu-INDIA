@@ -14,6 +14,15 @@ import { DoctorPortal } from "./pages/DoctorPortal";
 import { NOTTOGuide } from "./pages/NOTTOGuide";
 import { PledgeWall } from "./pages/PledgeWall";
 import { LegalFAQ } from "./pages/LegalFAQ";
+import { Dashboard } from "./pages/Dashboard";
+import { Contact } from "./pages/Contact";
+import { Privacy } from "./pages/Privacy";
+import { Terms } from "./pages/Terms";
+import { ForgotPassword } from "./pages/ForgotPassword";
+import { BloodCompatibility } from "./pages/BloodCompatibility";
+import { BloodBankDirectory } from "./pages/BloodBankDirectory";
+import { Statistics } from "./pages/Statistics";
+import { SuccessStories } from "./pages/SuccessStories";
 
 function NotFound() {
   return (
@@ -36,11 +45,16 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: Landing },
       { path: "login", Component: Login },
+      { path: "forgot-password", Component: ForgotPassword },
       { path: "register", Component: RegistrationFlow },
+      { path: "dashboard", Component: Dashboard },
       { path: "urgency", Component: UrgencyDashboard },
       { path: "seva-ai", Component: SevaAIPage },
       { path: "donor-card", Component: DonorCard },
       { path: "about", Component: About },
+      { path: "contact", Component: Contact },
+      { path: "privacy", Component: Privacy },
+      { path: "terms", Component: Terms },
       { path: "heatmap", Component: LiveHeatmap },
       { path: "alerts", Component: ProximityAlerts },
       { path: "report-scanner", Component: ReportScanner },
@@ -48,6 +62,10 @@ export const router = createBrowserRouter([
       { path: "notto-guide", Component: NOTTOGuide },
       { path: "pledge-wall", Component: PledgeWall },
       { path: "legal-faq", Component: LegalFAQ },
+      { path: "blood-compatibility", Component: BloodCompatibility },
+      { path: "blood-banks", Component: BloodBankDirectory },
+      { path: "statistics", Component: Statistics },
+      { path: "stories", Component: SuccessStories },
       { path: "*", Component: NotFound },
     ],
   },
