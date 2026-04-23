@@ -117,6 +117,7 @@ const TESTIMONIALS = [
 ];
 
 function AnimatedStat({ value, label, icon, color }: { value: string; label: string; icon: React.ReactNode; color: string }) {
+  const styles = useThemeStyles();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -127,8 +128,8 @@ function AnimatedStat({ value, label, icon, color }: { value: string; label: str
       <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-1" style={{ background: `${color}22`, color }}>
         {icon}
       </div>
-      <span style={{ fontSize: "32px", fontWeight: 800, color: "var(--color-primary-foreground, white)", letterSpacing: "-0.02em" }}>{value}</span>
-      <span style={{ fontSize: "14px", color: "var(--color-muted-foreground)", textAlign: "center", lineHeight: 1.3 }}>{label}</span>
+      <span style={{ fontSize: "32px", fontWeight: 800, color: styles.textPrimary, letterSpacing: "-0.02em" }}>{value}</span>
+      <span style={{ fontSize: "14px", color: styles.textSecondary, textAlign: "center", lineHeight: 1.3 }}>{label}</span>
     </motion.div>
   );
 }

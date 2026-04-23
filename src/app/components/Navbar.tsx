@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "./LanguageSelector";
-import { ThemeToggle } from "./ThemeToggle";
 import { NotificationCenter } from "./NotificationCenter";
 import { useThemeStyles } from "../ThemeContext";
 import {
@@ -186,7 +185,6 @@ export function Navbar() {
 
           {/* Right Actions */}
           <div className="hidden md:flex items-center gap-2.5">
-            <ThemeToggle />
             <NotificationCenter />
             <LanguageSelector />
             <Link
@@ -254,7 +252,6 @@ export function Navbar() {
           ))}
 
           <div className="flex items-center gap-3 mt-2 pt-2" style={{ borderTop: `1px solid ${styles.mobileBorder}` }}>
-            <ThemeToggle />
             <NotificationCenter />
             <LanguageSelector />
             <Link
