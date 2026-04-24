@@ -56,6 +56,16 @@ export default {
       "Is organ donation legal in India?",
     ],
     typing: "Seva is typing...",
+    answers: {
+      register: "To register as an organ donor in India:\n\n1. You need a valid Aadhaar card\n2. Mobile number linked to Aadhaar\n3. Doctor's eligibility certificate (for receivers)\n\nClick on 'Donate an Organ' on the home page to begin your 5-minute registration. Your consent is completely voluntary and can be revoked at any time.",
+      organ: "In India, the organs that can be donated include:\n\n❤️ Heart\n🫁 Lungs (both)\n🫀 Kidneys (both)\n🧠 Liver\n👁️ Corneas\n🩺 Pancreas\n\nLiving donors can donate one kidney or a part of the liver. All other organs are donated after brain death (cadaveric donation), as certified by an NOTTO-registered hospital.",
+      legal: "Yes, organ donation is fully legal in India under:\n\n📋 **The Transplantation of Human Organs and Tissues Act (THOTA), 1994** (amended 2011)\n\nKey points:\n• Trading organs is illegal and punishable\n• Only voluntary donation is permitted\n• All transplants must be routed through NOTTO\n• JivanSetu is a matching platform, NOT a marketplace\n\nFor official information: notto.mohfw.gov.in",
+      blood: "To find blood donors near you:\n\n1. Share your location below\n2. Enter the required blood type\n3. We'll show you verified donors within 10km\n\nEmergency blood banks:\n• AIIMS Delhi: +91-11-26588500\n• PGI Chandigarh: +91-172-2755555\n• KEM Mumbai: +91-22-24107000\n\nFor national blood bank directory, visit eraktkosh.in",
+      document: "Documents required for organ donor registration:\n\n✅ Aadhaar card (identity proof)\n✅ Recent passport photo\n✅ Mobile number linked to Aadhaar\n\nFor organ receivers additionally:\n✅ Doctor's opinion letter (on hospital letterhead)\n✅ Medical fitness certificate\n✅ Referring hospital registration number\n\nAll documents can be uploaded digitally in PDF or JPG format.",
+      notto: "NOTTO (National Organ and Tissue Transplant Organization) is India's apex body for organ transplantation.\n\nWebsite: notto.mohfw.gov.in\nHelpline: 1800-11-NOTTO\n\nJivanSetu works in partnership with NOTTO to ensure:\n• All matches are medically verified\n• Transplants happen through authorized hospitals\n• Data privacy is maintained per PDPA 2023",
+      default: "I'm Seva, your compassionate guide on JivanSetu. I can help you with:\n\n🩺 Organ donation registration\n🩸 Finding blood donors nearby\n📋 Required documents\n⚖️ Legal information (THOTA/NOTTO)\n❤️ Emotional support & guidance\n\nWhat would you like help with today?"
+    },
+    chips: { bloodBank: "Find Blood Bank", registerDonor: "Register Donor", documents: "Documents" }
   },
   registration: {
     steps: {

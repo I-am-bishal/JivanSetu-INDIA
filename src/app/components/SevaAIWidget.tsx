@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "motion/react";
 import { MessageCircle, X, Send, Sparkles, MapPin, FileText, UserCheck, Loader } from "lucide-react";
 import { useThemeStyles } from "../ThemeContext";
+import { LanguageSelector } from "./LanguageSelector";
 
 type Message = {
   id: string;
@@ -11,25 +12,30 @@ type Message = {
   timestamp: Date;
 };
 
-const SEVA_RESPONSES: Record<string, string> = {
-  "register": "To register as an organ donor in India:\n\n1. You need a valid Aadhaar card\n2. Mobile number linked to Aadhaar\n3. Doctor's eligibility certificate (for receivers)\n\nClick on 'Donate an Organ' on the home page to begin your 5-minute registration. Your consent is completely voluntary and can be revoked at any time.",
-  "organ": "In India, the organs that can be donated include:\n\n❤️ Heart\n🫁 Lungs (both)\n🫀 Kidneys (both)\n🧠 Liver\n👁️ Corneas\n🩺 Pancreas\n\nLiving donors can donate one kidney or a part of the liver. All other organs are donated after brain death (cadaveric donation), as certified by an NOTTO-registered hospital.",
-  "legal": "Yes, organ donation is fully legal in India under:\n\n📋 **The Transplantation of Human Organs and Tissues Act (THOTA), 1994** (amended 2011)\n\nKey points:\n• Trading organs is illegal and punishable\n• Only voluntary donation is permitted\n• All transplants must be routed through NOTTO\n• JivanSetu is a matching platform, NOT a marketplace\n\nFor official information: notto.mohfw.gov.in",
-  "blood": "To find blood donors near you:\n\n1. Share your location below\n2. Enter the required blood type\n3. We'll show you verified donors within 10km\n\nEmergency blood banks:\n• AIIMS Delhi: +91-11-26588500\n• PGI Chandigarh: +91-172-2755555\n• KEM Mumbai: +91-22-24107000\n\nFor national blood bank directory, visit eraktkosh.in",
-  "document": "Documents required for organ donor registration:\n\n✅ Aadhaar card (identity proof)\n✅ Recent passport photo\n✅ Mobile number linked to Aadhaar\n\nFor organ receivers additionally:\n✅ Doctor's opinion letter (on hospital letterhead)\n✅ Medical fitness certificate\n✅ Referring hospital registration number\n\nAll documents can be uploaded digitally in PDF or JPG format.",
-  "notto": "NOTTO (National Organ and Tissue Transplant Organization) is India's apex body for organ transplantation.\n\nWebsite: notto.mohfw.gov.in\nHelpline: 1800-11-NOTTO\n\nJivanSetu works in partnership with NOTTO to ensure:\n• All matches are medically verified\n• Transplants happen through authorized hospitals\n• Data privacy is maintained per PDPA 2023",
-  "default": "I'm Seva, your compassionate guide on JivanSetu. I can help you with:\n\n🩺 Organ donation registration\n🩸 Finding blood donors nearby\n📋 Required documents\n⚖️ Legal information (THOTA/NOTTO)\n❤️ Emotional support & guidance\n\nWhat would you like help with today?",
-};
+function getSevaResponse(input: string, t: any): string {
+  // Check exact suggestion matches
+  const suggestions = t("sevaAI.suggestions", { returnObjects: true });
+  if (Array.isArray(suggestions)) {
+    if (input === suggestions[0]) return t("sevaAI.answers.register");
+    if (input === suggestions[1]) return t("sevaAI.answers.document");
+    if (input === suggestions[2]) return t("sevaAI.answers.blood");
+    if (input === suggestions[3]) return t("sevaAI.answers.legal");
+  }
 
-function getSevaResponse(input: string): string {
+  // Check chips matches
+  if (input === t("sevaAI.chips.bloodBank", "Find Blood Bank") || input === "Find Blood Bank") return t("sevaAI.answers.blood");
+  if (input === t("sevaAI.chips.registerDonor", "Register Donor") || input === "Register Donor") return t("sevaAI.answers.register");
+  if (input === t("sevaAI.chips.documents", "Documents") || input === "Documents") return t("sevaAI.answers.document");
+
+  // Fallback keyword matching
   const lower = input.toLowerCase();
-  if (lower.includes("register") || lower.includes("sign up") || lower.includes("how to")) return SEVA_RESPONSES.register;
-  if (lower.includes("organ") && !lower.includes("legal")) return SEVA_RESPONSES.organ;
-  if (lower.includes("legal") || lower.includes("law") || lower.includes("illegal") || lower.includes("thota")) return SEVA_RESPONSES.legal;
-  if (lower.includes("blood") || lower.includes("bank")) return SEVA_RESPONSES.blood;
-  if (lower.includes("document") || lower.includes("certificate") || lower.includes("aadhaar")) return SEVA_RESPONSES.document;
-  if (lower.includes("notto") || lower.includes("government") || lower.includes("official")) return SEVA_RESPONSES.notto;
-  return SEVA_RESPONSES.default;
+  if (lower.includes("register") || lower.includes("sign up") || lower.includes("how to") || lower.includes("पंजीकरण")) return t("sevaAI.answers.register");
+  if (lower.includes("organ") && !lower.includes("legal") || lower.includes("अंग")) return t("sevaAI.answers.organ");
+  if (lower.includes("legal") || lower.includes("law") || lower.includes("illegal") || lower.includes("thota") || lower.includes("कानूनी")) return t("sevaAI.answers.legal");
+  if (lower.includes("blood") || lower.includes("bank") || lower.includes("रक्त")) return t("sevaAI.answers.blood");
+  if (lower.includes("document") || lower.includes("certificate") || lower.includes("aadhaar") || lower.includes("दस्तावेज")) return t("sevaAI.answers.document");
+  if (lower.includes("notto") || lower.includes("government") || lower.includes("official") || lower.includes("सरकार")) return t("sevaAI.answers.notto");
+  return t("sevaAI.answers.default");
 }
 
 export function SevaAIWidget() {
@@ -63,7 +69,7 @@ export function SevaAIWidget() {
     setInput("");
     setIsTyping(true);
     await new Promise((r) => setTimeout(r, 900 + Math.random() * 600));
-    const reply = getSevaResponse(text);
+    const reply = getSevaResponse(text, t);
     setIsTyping(false);
     setMessages((prev) => [
       ...prev,
@@ -113,8 +119,8 @@ export function SevaAIWidget() {
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className="fixed bottom-6 right-6 z-50 flex flex-col rounded-3xl overflow-hidden"
             style={{
-              width: "min(400px, calc(100vw - 24px))",
-              height: "min(600px, calc(100vh - 100px))",
+              width: "min(500px, calc(100vw - 24px))",
+              height: "min(700px, calc(100vh - 100px))",
               background: styles.dropdownBg,
               backdropFilter: "blur(20px)",
               border: `1px solid ${styles.dropdownBorder}`,
@@ -145,12 +151,15 @@ export function SevaAIWidget() {
                   </p>
                 </div>
               </div>
-              <button
-                onClick={() => setOpen(false)}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
-              >
-                <X size={16} />
-              </button>
+              <div className="flex items-center gap-2">
+                <LanguageSelector />
+                <button
+                  onClick={() => setOpen(false)}
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
+                >
+                  <X size={16} />
+                </button>
+              </div>
             </div>
 
             {/* Messages */}
@@ -222,7 +231,7 @@ export function SevaAIWidget() {
               )}
 
               {/* Quick Suggestions (show only on first message) */}
-              {messages.length === 1 && !isTyping && (
+              {messages.length === 1 && !isTyping && !input.trim() && (
                 <div className="flex flex-col gap-2 mt-1">
                   <p style={{ fontSize: "13px", color: styles.textMuted, textAlign: "center" }}>
                     Quick questions
@@ -251,9 +260,9 @@ export function SevaAIWidget() {
             {/* Quick Action Chips */}
             <div className="px-4 pb-2 flex gap-2 overflow-x-auto flex-shrink-0" style={{ scrollbarWidth: "none" }}>
               {[
-                { icon: <MapPin size={11} />, label: "Find Blood Bank" },
-                { icon: <UserCheck size={11} />, label: "Register Donor" },
-                { icon: <FileText size={11} />, label: "Documents" },
+                { icon: <MapPin size={11} />, label: t("sevaAI.chips.bloodBank", "Find Blood Bank") },
+                { icon: <UserCheck size={11} />, label: t("sevaAI.chips.registerDonor", "Register Donor") },
+                { icon: <FileText size={11} />, label: t("sevaAI.chips.documents", "Documents") },
               ].map((chip) => (
                 <button
                   key={chip.label}
