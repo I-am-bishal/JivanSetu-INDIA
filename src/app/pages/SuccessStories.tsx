@@ -93,13 +93,49 @@ const STORIES: Story[] = [
     img: "https://images.unsplash.com/photo-1623578981794-56753995d8f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
     date: "August 2025",
   },
+  {
+    id: 9, name: "Suresh & Anita Patil", age: 34, location: "Pune",
+    type: "organ", organ: "Liver",
+    title: "A mother's living donation saves her 8-month-old son",
+    story: "When baby Ayaan was diagnosed with biliary atresia, he needed an urgent liver transplant to survive. Anita turned out to be a match. Through JivanSetu's guidance, the complex legal and medical paperwork was fast-tracked, and a portion of her liver was successfully transplanted to Ayaan.",
+    quote: "JivanSetu didn't just match us with a hospital; they held our hands through the darkest time of our lives.",
+    img: "https://images.unsplash.com/photo-1584362917165-526a968579e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+    date: "April 2026",
+  },
+  {
+    id: 10, name: "The Sharma Family", age: 58, location: "Bengaluru",
+    type: "organ", organ: "Multi-Organ",
+    title: "Turning tragedy into hope: A father's legacy lives on in 5 people",
+    story: "After a fatal accident, Mr. Sharma's family was approached by a JivanSetu counselor at the hospital. Remembering his lifelong dedication to helping others, they consented to organ donation. His kidneys, liver, corneas, and skin saved or improved the lives of five different patients.",
+    quote: "Knowing my father's heart is still beating out there gives us a peace we never thought possible.",
+    img: "https://images.unsplash.com/photo-1622461828449-9cbb6d0b7d72?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+    date: "May 2026",
+  },
+  {
+    id: 11, name: "Karan Desai", age: 26, location: "Surat",
+    type: "blood",
+    title: "A midnight SOS matched with a rare AB- donor",
+    story: "A pregnant woman in Surat faced severe complications and desperately needed AB- blood, a very rare type. Karan, registered on JivanSetu, received a critical alert on his phone at 1:30 AM. He immediately rushed to the maternity clinic, providing the crucial transfusion that saved both mother and child.",
+    quote: "I was just sleeping. Giving 15 minutes of my time meant a newborn got to keep their mother. It's truly humbling.",
+    img: "https://images.unsplash.com/photo-1613799604496-90c66af2b53b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+    date: "March 2026",
+  },
+  {
+    id: 12, name: "Meena Rao", age: 41, location: "Hyderabad",
+    type: "organ", organ: "Kidney",
+    title: "From waitlist despair to a second chance at life",
+    story: "Meena had been on the kidney transplant waitlist for 4 years, facing declining health. By moving her registration to JivanSetu, the platform's advanced matching algorithm found a deceased donor match from a neighboring city much faster than anticipated.",
+    quote: "I had forgotten what it felt like to have energy. Today, I'm back at work and planning my daughter's wedding.",
+    img: "https://images.unsplash.com/photo-1672075270227-ddf5cb181a79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+    date: "June 2026",
+  }
 ];
 
 const IMPACT_STATS = [
-  { label: "Stories Shared", value: "500+", icon: <Quote size={18} />, color: "#3b82f6" },
-  { label: "Lives Changed", value: "32,918", icon: <Heart size={18} />, color: "#dc2626" },
-  { label: "Families United", value: "4,200+", icon: <Award size={18} />, color: "#f59e0b" },
-  { label: "Cities Reached", value: "312", icon: <MapPin size={18} />, color: "#10b981" },
+  { label: "Stories Shared", value: "650+", icon: <Quote size={18} />, color: "#3b82f6" },
+  { label: "Lives Changed", value: "33,540", icon: <Heart size={18} />, color: "#dc2626" },
+  { label: "Families United", value: "4,350+", icon: <Award size={18} />, color: "#f59e0b" },
+  { label: "Cities Reached", value: "328", icon: <MapPin size={18} />, color: "#10b981" },
 ];
 
 export function SuccessStories() {
