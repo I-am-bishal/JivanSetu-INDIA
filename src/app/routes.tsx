@@ -23,6 +23,7 @@ import { BloodCompatibility } from "./pages/BloodCompatibility";
 import { BloodBankDirectory } from "./pages/BloodBankDirectory";
 import { Statistics } from "./pages/Statistics";
 import { SuccessStories } from "./pages/SuccessStories";
+import { AdminDashboard } from "./pages/AdminDashboard";
 
 function NotFound() {
   return (
@@ -66,6 +67,7 @@ export const router = createBrowserRouter([
       { path: "blood-banks", Component: BloodBankDirectory },
       { path: "statistics", Component: Statistics },
       { path: "stories", Component: SuccessStories },
+      { path: "admin", Component: AdminDashboard },
       { path: "*", Component: NotFound },
     ],
   },
