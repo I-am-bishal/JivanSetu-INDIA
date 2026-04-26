@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Heart, Activity, Mail, Lock, ArrowRight } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useThemeStyles } from "../ThemeContext";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const styles = useThemeStyles();
+  const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate getting login details
-    console.log("Logged in with:", { email, password });
-    alert(`Getting login details for \nEmail: ${email}`);
+    // Simulate login success and redirect to User Dashboard
+    navigate("/dashboard");
   };
 
   return (
