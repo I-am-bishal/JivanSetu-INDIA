@@ -3,8 +3,8 @@ import { Heart, Shield, CheckCircle, MapPin, Droplets, Calendar, Share2, Downloa
 import { Link } from "react-router";
 
 const MOCK_DONOR = {
-  name: "Rajesh Kumar Sharma",
-  nameHi: "राजेश कुमार शर्मा",
+  name: "Bishal Paul",
+  nameHi: "बिशाल पॉल",
   id: "JS-2026-DL-048291",
   bloodType: "O+",
   organs: ["Heart", "Kidneys", "Liver", "Corneas"],

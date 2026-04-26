@@ -193,7 +193,7 @@ export function RegistrationFlow() {
                 <h2 style={{ fontSize: "20px", fontWeight: 700, color: "white", marginBottom: "4px" }}>Personal Information</h2>
                 <p style={{ fontSize: "13px", color: "rgba(148,163,184,0.7)", marginBottom: "24px" }}>Your details are encrypted and PDPA 2023 compliant</p>
                 <div className="flex flex-col gap-4">
-                  <InputField label="Full Name (as on Aadhaar)" value={form.fullName} onChange={(v: string) => updateForm("fullName", v)} placeholder="e.g. Rajesh Kumar Sharma" icon={<User size={15} />} />
+                  <InputField label="Full Name (as on Aadhaar)" value={form.fullName} onChange={(v: string) => updateForm("fullName", v)} placeholder="e.g. Bishal Paul" icon={<User size={15} />} />
                   <InputField label="Aadhaar Number" value={form.aadhaar} onChange={(v: string) => updateForm("aadhaar", v)} placeholder="XXXX XXXX XXXX" icon={<Shield size={15} />} type="tel" />
                   <div className="grid grid-cols-2 gap-4">
                     <InputField label="Date of Birth" value={form.dob} onChange={(v: string) => updateForm("dob", v)} type="date" icon={<Calendar size={15} />} />
@@ -512,7 +512,7 @@ export function RegistrationFlow() {
                 >
                   <p style={{ fontSize: "11px", color: "rgba(148,163,184,0.6)", marginBottom: "8px", letterSpacing: "0.06em" }}>REGISTRATION SUMMARY</p>
                   <div className="flex flex-col gap-2">
-                    <div className="flex justify-between"><span style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>Name</span><span style={{ fontSize: "13px", color: "white", fontWeight: 600 }}>{form.fullName || "Rajesh Kumar"}</span></div>
+                    <div className="flex justify-between"><span style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>Name</span><span style={{ fontSize: "13px", color: "white", fontWeight: 600 }}>{form.fullName || "Bishal Paul"}</span></div>
                     <div className="flex justify-between"><span style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>Blood Group</span><span style={{ fontSize: "13px", color: "white", fontWeight: 600 }}>{form.bloodType || "O+"}</span></div>
                     <div className="flex justify-between"><span style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>Type</span><span style={{ fontSize: "13px", color: "white", fontWeight: 600 }}>{persona.title}</span></div>
                     <div className="flex justify-between"><span style={{ fontSize: "13px", color: "rgba(255,255,255,0.5)" }}>Status</span><span style={{ fontSize: "13px", color: "#6ee7b7", fontWeight: 600 }}>✓ Active</span></div>

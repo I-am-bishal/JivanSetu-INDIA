@@ -8,9 +8,9 @@ import {
 } from "lucide-react";
 
 const MOCK_USER = {
-  name: "Rajesh Kumar Sharma",
-  nameHi: "राजेश कुमार शर्मा",
-  email: "rajesh.sharma@gmail.com",
+  name: "Bishal Paul",
+  nameHi: "बिशाल पॉल",
+  email: "bishal.paul@gmail.com",
   donorId: "JS-2026-DL-048291",
   bloodType: "O+",
   organsPlodged: ["Heart", "Kidneys", "Liver", "Corneas"],

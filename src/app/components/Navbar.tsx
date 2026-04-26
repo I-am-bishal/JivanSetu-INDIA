@@ -191,7 +191,7 @@ export function Navbar() {
             <LanguageSelector />
             {isLoggedInState ? (
               <Link to="/dashboard" className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm transition-transform hover:scale-105" style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 15px rgba(37,99,235,0.35)" }}>
-                RK
+                BP
               </Link>
             ) : (
               <Link
@@ -264,7 +264,7 @@ export function Navbar() {
             <LanguageSelector />
             {isLoggedInState ? (
               <div className="flex-1 text-center py-2 text-sm font-semibold" style={{ color: styles.textPrimary }}>
-                Logged in as Rajesh
+                Logged in as Bishal Paul
               </div>
             ) : (
               <Link
