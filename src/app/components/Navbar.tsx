@@ -44,6 +44,8 @@ export function Navbar() {
   const isActive = (href: string) =>
     href === "/" ? location.pathname === "/" : location.pathname.startsWith(href);
 
+  const isLoggedInState = location.pathname === "/dashboard" || location.pathname === "/donor-card";
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -187,18 +189,24 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-2.5">
             <NotificationCenter />
             <LanguageSelector />
-            <Link
-              to="/login"
-              className="px-4 py-2 rounded-full text-white transition-all duration-200 hover:opacity-90 active:scale-95"
-              style={{
-                background: "linear-gradient(135deg, #2563eb, #1d4ed8)",
-                fontSize: "14px",
-                fontWeight: 600,
-                boxShadow: "0 4px 15px rgba(37,99,235,0.35)",
-              }}
-            >
-              {t("nav.login")}
-            </Link>
+            {isLoggedInState ? (
+              <Link to="/dashboard" className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm transition-transform hover:scale-105" style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 15px rgba(37,99,235,0.35)" }}>
+                RK
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="px-4 py-2 rounded-full text-white transition-all duration-200 hover:opacity-90 active:scale-95"
+                style={{
+                  background: "linear-gradient(135deg, #2563eb, #1d4ed8)",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  boxShadow: "0 4px 15px rgba(37,99,235,0.35)",
+                }}
+              >
+                {t("nav.login")}
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -254,14 +262,20 @@ export function Navbar() {
           <div className="flex items-center gap-3 mt-2 pt-2" style={{ borderTop: `1px solid ${styles.mobileBorder}` }}>
             <NotificationCenter />
             <LanguageSelector />
-            <Link
-              to="/login"
-              onClick={() => setMobileOpen(false)}
-              className="flex-1 text-center px-4 py-2 rounded-full text-white"
-              style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", fontSize: "14px", fontWeight: 600 }}
-            >
-              {t("nav.login")}
-            </Link>
+            {isLoggedInState ? (
+              <div className="flex-1 text-center py-2 text-sm font-semibold" style={{ color: styles.textPrimary }}>
+                Logged in as Rajesh
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setMobileOpen(false)}
+                className="flex-1 text-center px-4 py-2 rounded-full text-white"
+                style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", fontSize: "14px", fontWeight: 600 }}
+              >
+                {t("nav.login")}
+              </Link>
+            )}
           </div>
         </div>
       )}
