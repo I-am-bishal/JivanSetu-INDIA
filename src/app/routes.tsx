@@ -67,8 +67,11 @@ export const router = createBrowserRouter([
       { path: "blood-banks", Component: BloodBankDirectory },
       { path: "statistics", Component: Statistics },
       { path: "stories", Component: SuccessStories },
-      { path: "admin", Component: AdminDashboard },
       { path: "*", Component: NotFound },
     ],
+  },
+  {
+    path: "/admin",
+    Component: AdminDashboard,
   },
 ]);
