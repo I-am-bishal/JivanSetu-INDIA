@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { LanguageSelector } from "./LanguageSelector";
 import { NotificationCenter } from "./NotificationCenter";
@@ -7,7 +7,7 @@ import { useThemeStyles } from "../ThemeContext";
 import {
   Menu, X, Heart, Activity, ChevronDown, MapPin, Bell, ScanLine,
   Stethoscope, Shield, Award, Scale, Droplets, BarChart3, BookOpen,
-  LayoutDashboard, Phone
+  LayoutDashboard, Phone, LogOut
 } from "lucide-react";
 
 const MORE_ITEMS = [
@@ -44,7 +44,22 @@ export function Navbar() {
   const isActive = (href: string) =>
     href === "/" ? location.pathname === "/" : location.pathname.startsWith(href);
 
-  const isLoggedInState = location.pathname === "/dashboard" || location.pathname === "/donor-card";
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem("jivansetu_logged_in") === "true");
+
+  // Sync auth state if it changes in another tab or after navigation
+  useEffect(() => {
+    const sync = () => setIsLoggedIn(localStorage.getItem("jivansetu_logged_in") === "true");
+    window.addEventListener("storage", sync);
+    sync();
+    return () => window.removeEventListener("storage", sync);
+  }, [location.pathname]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("jivansetu_logged_in");
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -189,10 +204,20 @@ export function Navbar() {
           <div className="hidden md:flex items-center gap-2.5">
             <NotificationCenter />
             <LanguageSelector />
-            {isLoggedInState ? (
-              <Link to="/dashboard" className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm transition-transform hover:scale-105" style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 15px rgba(37,99,235,0.35)" }}>
-                BP
-              </Link>
+            {isLoggedIn ? (
+              <div className="flex items-center gap-2">
+                <Link to="/dashboard" className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm transition-transform hover:scale-105" style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 15px rgba(37,99,235,0.35)" }}>
+                  BP
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  title="Log out"
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+                  style={{ background: "rgba(220,38,38,0.15)", border: "1px solid rgba(220,38,38,0.3)", color: "#f87171" }}
+                >
+                  <LogOut size={15} />
+                </button>
+              </div>
             ) : (
               <Link
                 to="/login"
@@ -262,9 +287,16 @@ export function Navbar() {
           <div className="flex items-center gap-3 mt-2 pt-2" style={{ borderTop: `1px solid ${styles.mobileBorder}` }}>
             <NotificationCenter />
             <LanguageSelector />
-            {isLoggedInState ? (
-              <div className="flex-1 text-center py-2 text-sm font-semibold" style={{ color: styles.textPrimary }}>
-                Logged in as Bishal Paul
+            {isLoggedIn ? (
+              <div className="flex-1 flex items-center justify-between gap-2">
+                <span className="text-sm font-semibold" style={{ color: styles.textPrimary }}>Bishal Paul</span>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold"
+                  style={{ background: "rgba(220,38,38,0.15)", border: "1px solid rgba(220,38,38,0.3)", color: "#f87171" }}
+                >
+                  <LogOut size={13} /> Log out
+                </button>
               </div>
             ) : (
               <Link

@@ -11,7 +11,8 @@ export function Login() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate login success and redirect to User Dashboard
+    // Simulate login success — persist auth state and redirect to User Dashboard
+    localStorage.setItem("jivansetu_logged_in", "true");
     navigate("/dashboard");
   };
 
