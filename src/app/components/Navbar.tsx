@@ -7,7 +7,7 @@ import { useThemeStyles } from "../ThemeContext";
 import {
   Menu, X, Heart, Activity, ChevronDown, MapPin, Bell, ScanLine,
   Stethoscope, Shield, Award, Scale, Droplets, BarChart3, BookOpen,
-  LayoutDashboard, Phone, LogOut
+  LayoutDashboard, Phone, LogOut, User, CreditCard, Settings
 } from "lucide-react";
 
 const MORE_ITEMS = [
@@ -30,7 +30,9 @@ export function Navbar() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
   const styles = useThemeStyles();
 
   const navItems = [
@@ -61,20 +63,20 @@ export function Navbar() {
     navigate("/");
   };
 
-  // Close dropdown when clicking outside
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
-        setMoreOpen(false);
-      }
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) setMoreOpen(false);
+      if (profileRef.current && !profileRef.current.contains(e.target as Node)) setProfileOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Close dropdown on route change
+  // Close dropdowns on route change
   useEffect(() => {
     setMoreOpen(false);
+    setProfileOpen(false);
     setMobileOpen(false);
   }, [location.pathname]);
 
@@ -205,18 +207,69 @@ export function Navbar() {
             <NotificationCenter />
             <LanguageSelector />
             {isLoggedIn ? (
-              <div className="flex items-center gap-2">
-                <Link to="/dashboard" className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm transition-transform hover:scale-105" style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 15px rgba(37,99,235,0.35)" }}>
-                  BP
-                </Link>
+              <div className="relative" ref={profileRef}>
                 <button
-                  onClick={handleLogout}
-                  title="Log out"
-                  className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:scale-105 active:scale-95"
-                  style={{ background: "rgba(220,38,38,0.15)", border: "1px solid rgba(220,38,38,0.3)", color: "#f87171" }}
+                  onClick={() => setProfileOpen(!profileOpen)}
+                  className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm transition-all hover:scale-105 hover:shadow-lg"
+                  style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: profileOpen ? "0 0 0 3px rgba(37,99,235,0.35)" : "0 4px 15px rgba(37,99,235,0.35)" }}
                 >
-                  <LogOut size={15} />
+                  BP
                 </button>
+
+                {profileOpen && (
+                  <div
+                    className="absolute top-full right-0 mt-2 w-56 rounded-2xl py-2 z-50"
+                    style={{
+                      background: styles.dropdownBg,
+                      border: `1px solid ${styles.dropdownBorder}`,
+                      backdropFilter: "blur(20px)",
+                      boxShadow: styles.dropdownShadow,
+                    }}
+                  >
+                    {/* User header */}
+                    <div className="px-4 py-3 mb-1" style={{ borderBottom: `1px solid ${styles.dropdownBorder}` }}>
+                      <p style={{ fontSize: "14px", fontWeight: 700, color: styles.textPrimary }}>Bishal Paul</p>
+                      <p style={{ fontSize: "12px", color: styles.textMuted, marginTop: "2px" }}>bishal.paul@gmail.com</p>
+                    </div>
+
+                    {[
+                      { href: "/profile", label: "My Profile", icon: <User size={14} />, color: "#3b82f6" },
+                      { href: "/dashboard", label: "Dashboard", icon: <LayoutDashboard size={14} />, color: "#10b981" },
+                      { href: "/donor-card", label: "Donor Card", icon: <CreditCard size={14} />, color: "#a855f7" },
+                      { href: "/profile", label: "Settings", icon: <Settings size={14} />, color: "#f59e0b" },
+                    ].map(item => (
+                      <Link
+                        key={item.label}
+                        to={item.href}
+                        className="flex items-center gap-2.5 px-4 py-2.5 w-full transition-all"
+                        style={{ background: isActive(item.href) && item.label !== "Settings" ? styles.dropdownItemHover : "transparent" }}
+                        onMouseEnter={e => { e.currentTarget.style.background = styles.dropdownItemHover; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}
+                      >
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+                          style={{ background: `${item.color}20`, color: item.color }}>
+                          {item.icon}
+                        </div>
+                        <span style={{ fontSize: "14px", fontWeight: 500, color: styles.dropdownItemText }}>{item.label}</span>
+                      </Link>
+                    ))}
+
+                    <div style={{ margin: "6px 16px", height: "1px", background: styles.dropdownBorder }} />
+
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-2.5 px-4 py-2.5 w-full transition-all"
+                      onMouseEnter={e => { e.currentTarget.style.background = "rgba(220,38,38,0.1)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}
+                    >
+                      <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+                        style={{ background: "rgba(220,38,38,0.15)", color: "#f87171" }}>
+                        <LogOut size={14} />
+                      </div>
+                      <span style={{ fontSize: "14px", fontWeight: 500, color: "#f87171" }}>Log Out</span>
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <Link
@@ -289,7 +342,14 @@ export function Navbar() {
             <LanguageSelector />
             {isLoggedIn ? (
               <div className="flex-1 flex items-center justify-between gap-2">
-                <span className="text-sm font-semibold" style={{ color: styles.textPrimary }}>Bishal Paul</span>
+                <Link to="/profile" onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-2"
+                  style={{ color: styles.textPrimary }}
+                >
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs"
+                    style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)" }}>BP</div>
+                  <span style={{ fontSize: "14px", fontWeight: 600 }}>Bishal Paul</span>
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold"

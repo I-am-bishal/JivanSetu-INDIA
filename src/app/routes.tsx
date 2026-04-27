@@ -24,6 +24,7 @@ import { BloodBankDirectory } from "./pages/BloodBankDirectory";
 import { Statistics } from "./pages/Statistics";
 import { SuccessStories } from "./pages/SuccessStories";
 import { AdminDashboard } from "./pages/AdminDashboard";
+import { ProfilePage } from "./pages/ProfilePage";
 
 function NotFound() {
   return (
@@ -49,6 +50,7 @@ export const router = createBrowserRouter([
       { path: "forgot-password", Component: ForgotPassword },
       { path: "register", Component: RegistrationFlow },
       { path: "dashboard", Component: Dashboard },
+      { path: "profile", Component: ProfilePage },
       { path: "urgency", Component: UrgencyDashboard },
       { path: "seva-ai", Component: SevaAIPage },
       { path: "donor-card", Component: DonorCard },
