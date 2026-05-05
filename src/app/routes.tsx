@@ -25,6 +25,9 @@ import { Statistics } from "./pages/Statistics";
 import { SuccessStories } from "./pages/SuccessStories";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { ProfilePage } from "./pages/ProfilePage";
+import { NearbyHospitals } from "./pages/NearbyHospitals";
+import { DoctorDirectory } from "./pages/DoctorDirectory";
+import { EmergencyServices } from "./pages/EmergencyServices";
 
 function NotFound() {
   return (
@@ -69,6 +72,9 @@ export const router = createBrowserRouter([
       { path: "blood-banks", Component: BloodBankDirectory },
       { path: "statistics", Component: Statistics },
       { path: "stories", Component: SuccessStories },
+      { path: "hospitals", Component: NearbyHospitals },
+      { path: "doctors", Component: DoctorDirectory },
+      { path: "emergency-services", Component: EmergencyServices },
       { path: "*", Component: NotFound },
     ],
   },
