@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from "motion/react";
 import {
   Heart, Droplets, ArrowRight, Shield, Award, MapPin,
   Users, Activity, CheckCircle, ChevronRight, Zap, Clock,
-  Bell, ScanLine, Stethoscope, Scale, BarChart3, BookOpen
+  Bell, ScanLine, Stethoscope, Scale, BarChart3, BookOpen,
+  Building2, Ambulance
 } from "lucide-react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useThemeStyles } from "../ThemeContext";
@@ -646,6 +647,9 @@ export function Landing() {
               { href: "/stories", title: "Success Stories", sub: "Real stories of lives changed", icon: <BookOpen size={20} />, color: "#14b8a6", gradient: "linear-gradient(135deg, #134e4a, #14b8a6)" },
               { href: "/legal-faq", title: "Legal FAQ", sub: "THOTA explained in simple terms", icon: <Scale size={20} />, color: "#f59e0b", gradient: "linear-gradient(135deg, #78350f, #b45309)" },
               { href: "/seva-ai", title: "Seva AI", sub: "Your 24/7 AI-powered donation guide", icon: <Heart size={20} />, color: "#ec4899", gradient: "linear-gradient(135deg, #831843, #db2777)" },
+              { href: "/hospitals", title: "Nearby Hospitals", sub: "Find hospitals & transplant centres near you", icon: <Building2 size={20} />, color: "#0ea5e9", gradient: "linear-gradient(135deg, #0c4a6e, #0284c7)" },
+              { href: "/doctors", title: "Doctor Directory", sub: "Connect with verified specialists", icon: <Stethoscope size={20} />, color: "#a855f7", gradient: "linear-gradient(135deg, #581c87, #7c3aed)" },
+              { href: "/emergency-services", title: "Emergency Services", sub: "Ambulance, pharmacies & helplines", icon: <Ambulance size={20} />, color: "#dc2626", gradient: "linear-gradient(135deg, #7f1d1d, #b91c1c)" },
             ].map((feat, i) => (
               <motion.div key={feat.href}
                 initial={{ opacity: 0, y: 15 }}
