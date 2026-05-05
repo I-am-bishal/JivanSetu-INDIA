@@ -7,7 +7,8 @@ import { useThemeStyles } from "../ThemeContext";
 import {
   Menu, X, Heart, Activity, ChevronDown, MapPin, Bell, ScanLine,
   Stethoscope, Shield, Award, Scale, Droplets, BarChart3, BookOpen,
-  LayoutDashboard, Phone, LogOut, User, CreditCard, Settings
+  LayoutDashboard, Phone, LogOut, User, CreditCard, Settings,
+  Building2, Ambulance, Pill
 } from "lucide-react";
 
 const MORE_ITEMS = [
@@ -22,6 +23,9 @@ const MORE_ITEMS = [
   { href: "/blood-banks", label: "Blood Banks", icon: <Droplets size={14} />, color: "#f97316" },
   { href: "/statistics", label: "Statistics", icon: <BarChart3 size={14} />, color: "#6366f1" },
   { href: "/stories", label: "Success Stories", icon: <BookOpen size={14} />, color: "#14b8a6" },
+  { href: "/hospitals", label: "Nearby Hospitals", icon: <Building2 size={14} />, color: "#10b981" },
+  { href: "/doctors", label: "Doctor Directory", icon: <Stethoscope size={14} />, color: "#a855f7" },
+  { href: "/emergency-services", label: "Emergency Services", icon: <Ambulance size={14} />, color: "#dc2626" },
   { href: "/contact", label: "Contact Us", icon: <Phone size={14} />, color: "#06b6d4" },
 ];
 
