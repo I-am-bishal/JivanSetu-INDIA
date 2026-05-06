@@ -124,13 +124,13 @@ function AnimatedStat({ value, label, icon, color }: { value: string; label: str
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="flex flex-col items-center gap-2 px-6 py-4"
+      className="flex flex-col items-center gap-2 px-3 sm:px-6 py-4"
     >
-      <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-1" style={{ background: `${color}22`, color }}>
+      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-1" style={{ background: `${color}22`, color }}>
         {icon}
       </div>
-      <span style={{ fontSize: "32px", fontWeight: 800, color: styles.textPrimary, letterSpacing: "-0.02em" }}>{value}</span>
-      <span style={{ fontSize: "14px", color: styles.textSecondary, textAlign: "center", lineHeight: 1.3 }}>{label}</span>
+      <span style={{ fontSize: "clamp(22px, 5vw, 32px)", fontWeight: 800, color: styles.textPrimary, letterSpacing: "-0.02em" }}>{value}</span>
+      <span style={{ fontSize: "clamp(11px, 2.5vw, 14px)", color: styles.textSecondary, textAlign: "center", lineHeight: 1.3 }}>{label}</span>
     </motion.div>
   );
 }
@@ -150,7 +150,7 @@ export function Landing() {
       {/* ═══════════════════════════════════════════
           HERO SECTION
       ═══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden" style={{ minHeight: "92vh" }}>
+      <section className="relative overflow-hidden" style={{ minHeight: "100dvh" }}>
         {/* Background Image Carousel */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -182,7 +182,7 @@ export function Landing() {
         }} />
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-8 flex flex-col items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-12 sm:pt-16 pb-8 flex flex-col items-center">
 
           {/* NOTTO Badge */}
           <motion.div
@@ -254,7 +254,8 @@ export function Landing() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, staggerChildren: 0.1 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-5xl mb-10"
+            className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full max-w-5xl mb-10"
+            style={{ gridTemplateColumns: "repeat(auto-fit, minmax(min(160px, 100%), 1fr))" }}
           >
             {PERSONA_CARDS.map((card, i) => (
               <motion.div
@@ -267,13 +268,14 @@ export function Landing() {
               >
                 <Link
                   to={card.href}
-                  className="block rounded-3xl p-5 h-full relative overflow-hidden group"
+                  className="block rounded-2xl sm:rounded-3xl p-4 sm:p-5 h-full relative overflow-hidden group"
                   style={{
                     background: styles.cardBg,
                     backdropFilter: "blur(20px)",
                     border: `1px solid ${styles.cardBorder}`,
                     boxShadow: `0 8px 32px ${card.glowColor}`,
                     transition: "all 0.3s ease",
+                    minHeight: "44px",
                   }}
                 >
                   {/* Gradient glow bg */}
@@ -313,14 +315,14 @@ export function Landing() {
 
                   {/* Text */}
                   <h3
-                    style={{ fontSize: "18px", fontWeight: 700, color: styles.textPrimary, lineHeight: 1.2, marginBottom: "4px" }}
+                    style={{ fontSize: "clamp(15px, 3.5vw, 18px)", fontWeight: 700, color: styles.textPrimary, lineHeight: 1.2, marginBottom: "4px" }}
                   >
                     {card.title}
                   </h3>
-                  <p style={{ fontSize: "14px", color: styles.textSecondary, marginBottom: "8px", fontFamily: "'Noto Sans Devanagari', sans-serif" }}>
+                  <p style={{ fontSize: "13px", color: styles.textSecondary, marginBottom: "6px", fontFamily: "'Noto Sans Devanagari', sans-serif" }}>
                     {card.titleHi}
                   </p>
-                  <p style={{ fontSize: "14px", color: styles.textMuted, lineHeight: 1.4, marginBottom: "12px" }}>
+                  <p className="hidden xs:block" style={{ fontSize: "13px", color: styles.textMuted, lineHeight: 1.4, marginBottom: "10px" }}>
                     {card.sub}
                   </p>
 
@@ -667,7 +669,7 @@ export function Landing() {
                   </div>
                   <h3 style={{ fontSize: "16px", fontWeight: 700, color: styles.textPrimary, marginBottom: "4px" }}>{feat.title}</h3>
                   <p style={{ fontSize: "14px", color: styles.textMuted, lineHeight: 1.5 }}>{feat.sub}</p>
-                  <div className="mt-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                  <div className="mt-3 flex items-center gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
                     <span style={{ fontSize: "14px", color: feat.color, fontWeight: 600 }}>Explore</span>
                     <ArrowRight size={14} style={{ color: feat.color }} />
                   </div>

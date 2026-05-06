@@ -178,4 +178,63 @@
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
   }
+
+  /* Mobile-specific utilities */
+  @media (max-width: 640px) {
+    html {
+      font-size: 15px;
+    }
+
+    /* Ensure proper touch scrolling */
+    .overflow-y-auto,
+    .overflow-auto {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    /* Hide scrollbars on mobile */
+    .overflow-y-auto::-webkit-scrollbar,
+    .overflow-auto::-webkit-scrollbar {
+      display: none;
+    }
+    .overflow-y-auto,
+    .overflow-auto {
+      scrollbar-width: none;
+    }
+  }
+
+  /* Very small phones (< 360px like iPhone SE) */
+  @media (max-width: 359px) {
+    html {
+      font-size: 14px;
+    }
+  }
+
+  /* Touch device optimizations */
+  @media (hover: none) and (pointer: coarse) {
+    /* Larger touch targets */
+    button,
+    a,
+    [role="button"] {
+      min-height: 44px;
+    }
+
+    /* Remove hover effects that don't work on touch */
+    .group:hover .group-hover\:opacity-100 {
+      opacity: 1;
+    }
+
+    /* Prevent 300ms click delay */
+    * {
+      touch-action: manipulation;
+    }
+  }
+
+  /* Safe area utilities */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
 }

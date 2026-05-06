@@ -84,6 +84,31 @@ export function Navbar() {
     setMobileOpen(false);
   }, [location.pathname]);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.top = `-${window.scrollY}px`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+    };
+  }, [mobileOpen]);
+
   return (
     <nav
       className="sticky top-0 z-40 w-full transition-colors duration-300"
@@ -91,6 +116,7 @@ export function Navbar() {
         background: styles.navBg,
         backdropFilter: "blur(20px)",
         borderBottom: `1px solid ${styles.navBorder}`,
+        paddingTop: "env(safe-area-inset-top)",
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -291,89 +317,177 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Toggle — min 44px touch target */}
           <button
-            className="md:hidden p-2"
-            style={{ color: styles.navText }}
+            className="md:hidden flex items-center justify-center"
+            style={{ color: styles.navText, width: "44px", height: "44px", minWidth: "44px" }}
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — Full screen overlay */}
       {mobileOpen && (
-        <div
-          className="md:hidden px-4 pb-4 pt-2 flex flex-col gap-1 max-h-[80vh] overflow-y-auto"
-          style={{ borderTop: `1px solid ${styles.mobileBorder}`, background: styles.navBg }}
-        >
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              onClick={() => setMobileOpen(false)}
-              className={`px-4 py-2.5 rounded-xl transition-all ${
-                isActive(item.href) ? styles.navActiveClass : ""
-              }`}
-              style={{ fontSize: "15px", fontWeight: 500, color: isActive(item.href) ? undefined : styles.navTextMuted }}
-            >
-              {item.label}
-            </Link>
-          ))}
+        <>
+          {/* Backdrop overlay */}
+          <div
+            className="fixed inset-0 z-30 md:hidden"
+            style={{ background: "rgba(0,0,0,0.5)", backdropFilter: "blur(4px)" }}
+            onClick={() => setMobileOpen(false)}
+          />
 
-          {/* Divider */}
-          <div className="h-px my-1" style={{ background: styles.mobileBorder }} />
-          <p className="px-4 pt-1" style={{ fontSize: "12px", color: styles.textMuted, letterSpacing: "0.08em", fontWeight: 600 }}>MORE FEATURES</p>
-
-          {MORE_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              onClick={() => setMobileOpen(false)}
-              className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl transition-all ${
-                isActive(item.href) ? styles.navActiveClass : ""
-              }`}
-              style={{ fontSize: "15px", fontWeight: 500, color: isActive(item.href) ? undefined : styles.navTextMuted }}
-            >
-              <span style={{ color: item.color }}>{item.icon}</span>
-              {item.label}
-            </Link>
-          ))}
-
-          <div className="flex items-center gap-3 mt-2 pt-2" style={{ borderTop: `1px solid ${styles.mobileBorder}` }}>
-            <NotificationCenter />
-            <LanguageSelector />
-            {isLoggedIn ? (
-              <div className="flex-1 flex items-center justify-between gap-2">
-                <Link to="/profile" onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2"
-                  style={{ color: styles.textPrimary }}
-                >
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs"
-                    style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)" }}>BP</div>
-                  <span style={{ fontSize: "14px", fontWeight: 600 }}>Bishal Paul</span>
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold"
-                  style={{ background: "rgba(220,38,38,0.15)", border: "1px solid rgba(220,38,38,0.3)", color: "#f87171" }}
-                >
-                  <LogOut size={13} /> Log out
-                </button>
-              </div>
-            ) : (
-              <Link
-                to="/login"
-                onClick={() => setMobileOpen(false)}
-                className="flex-1 text-center px-4 py-2 rounded-full text-white"
-                style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", fontSize: "14px", fontWeight: 600 }}
-              >
-                {t("nav.login")}
+          {/* Sliding drawer */}
+          <div
+            className="fixed inset-x-0 top-0 z-40 md:hidden flex flex-col"
+            style={{
+              background: styles.navBg,
+              backdropFilter: "blur(20px)",
+              maxHeight: "100dvh",
+              paddingTop: "env(safe-area-inset-top)",
+              animation: "slideDown 0.25s ease-out",
+            }}
+          >
+            {/* Mobile header */}
+            <div className="flex items-center justify-between px-4 h-16 flex-shrink-0" style={{ borderBottom: `1px solid ${styles.mobileBorder}` }}>
+              <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5">
+                <div className="relative w-9 h-9 flex items-center justify-center rounded-xl"
+                  style={{ background: "linear-gradient(135deg, #dc2626, #991b1b)" }}>
+                  <Heart size={18} fill="white" color="white" />
+                </div>
+                <span style={{ fontFamily: "'Noto Sans', sans-serif", fontSize: "19px", fontWeight: 700, color: styles.textPrimary }}>
+                  JivanSetu
+                </span>
               </Link>
-            )}
+              <button
+                className="flex items-center justify-center"
+                style={{ color: styles.navText, width: "44px", height: "44px" }}
+                onClick={() => setMobileOpen(false)}
+                aria-label="Close menu"
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            {/* Scrollable content */}
+            <div
+              className="flex-1 overflow-y-auto overscroll-contain px-4 pb-6"
+              style={{
+                maxHeight: "calc(100dvh - 64px)",
+                paddingBottom: "calc(24px + env(safe-area-inset-bottom))",
+                WebkitOverflowScrolling: "touch",
+              }}
+            >
+              {/* Main navigation — min 48px touch targets */}
+              <div className="py-3">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`flex items-center px-4 rounded-xl transition-all ${
+                      isActive(item.href) ? styles.navActiveClass : ""
+                    }`}
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: isActive(item.href) ? 600 : 500,
+                      color: isActive(item.href) ? undefined : styles.navTextMuted,
+                      minHeight: "48px",
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Divider */}
+              <div className="h-px mx-2 my-1" style={{ background: styles.mobileBorder }} />
+              <p className="px-4 pt-2 pb-1" style={{ fontSize: "11px", color: styles.textMuted, letterSpacing: "0.1em", fontWeight: 700 }}>MORE FEATURES</p>
+
+              {/* More items — 2 column grid for compact display */}
+              <div className="grid grid-cols-1 gap-0.5 py-1">
+                {MORE_ITEMS.map((item) => (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`flex items-center gap-3 px-4 rounded-xl transition-all ${
+                      isActive(item.href) ? styles.navActiveClass : ""
+                    }`}
+                    style={{
+                      fontSize: "15px",
+                      fontWeight: isActive(item.href) ? 600 : 500,
+                      color: isActive(item.href) ? undefined : styles.navTextMuted,
+                      minHeight: "46px",
+                    }}
+                  >
+                    <span className="flex-shrink-0" style={{ color: item.color }}>{item.icon}</span>
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+
+              {/* Bottom actions */}
+              <div className="h-px mx-2 my-2" style={{ background: styles.mobileBorder }} />
+
+              <div className="flex items-center gap-3 px-2 py-3">
+                <NotificationCenter />
+                <LanguageSelector />
+                <div className="flex-1" />
+                {isLoggedIn ? (
+                  <div className="flex items-center gap-3">
+                    <Link to="/profile" onClick={() => setMobileOpen(false)}
+                      className="flex items-center gap-2"
+                      style={{ color: styles.textPrimary }}
+                    >
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-xs"
+                        style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)" }}>BP</div>
+                      <span style={{ fontSize: "14px", fontWeight: 600 }}>Bishal Paul</span>
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-semibold"
+                      style={{
+                        background: "rgba(220,38,38,0.15)",
+                        border: "1px solid rgba(220,38,38,0.3)",
+                        color: "#f87171",
+                        minHeight: "40px",
+                      }}
+                    >
+                      <LogOut size={13} /> Log out
+                    </button>
+                  </div>
+                ) : (
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex-1 text-center px-4 py-2.5 rounded-full text-white"
+                    style={{
+                      background: "linear-gradient(135deg, #2563eb, #1d4ed8)",
+                      fontSize: "14px",
+                      fontWeight: 600,
+                      minHeight: "44px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {t("nav.login")}
+                  </Link>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
+
+          <style>{`
+            @keyframes slideDown {
+              from { opacity: 0; transform: translateY(-10px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+          `}</style>
+        </>
       )}
     </nav>
   );

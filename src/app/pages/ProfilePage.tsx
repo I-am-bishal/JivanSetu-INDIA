@@ -16,7 +16,7 @@ function Section({ title, icon, children }: { title: string; icon: React.ReactNo
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      className="rounded-3xl p-6 mb-5"
+      className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 mb-4 sm:mb-5"
       style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
     >
       <div className="flex items-center gap-2.5 mb-5">
@@ -46,11 +46,13 @@ const inputStyle: React.CSSProperties = {
   border: "1px solid rgba(255,255,255,0.1)",
   borderRadius: "12px",
   color: "white",
-  fontSize: "14px",
-  padding: "10px 14px",
+  fontSize: "16px",
+  padding: "12px 14px",
   outline: "none",
   width: "100%",
   transition: "border-color 0.2s",
+  WebkitAppearance: "none" as any,
+  minHeight: "44px",
 };
 
 export function ProfilePage() {
@@ -111,19 +113,19 @@ export function ProfilePage() {
   const Toggle = ({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) => (
     <button
       onClick={() => onChange(!value)}
-      className="relative w-11 h-6 rounded-full transition-all duration-300 flex-shrink-0"
-      style={{ background: value ? "linear-gradient(135deg, #2563eb, #1d4ed8)" : "rgba(255,255,255,0.1)" }}
+      className="relative rounded-full transition-all duration-300 flex-shrink-0"
+      style={{ background: value ? "linear-gradient(135deg, #2563eb, #1d4ed8)" : "rgba(255,255,255,0.1)", width: "52px", height: "28px", minWidth: "52px" }}
     >
       <div
-        className="absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all duration-300"
-        style={{ left: value ? "22px" : "2px" }}
+        className="absolute w-5 h-5 rounded-full bg-white shadow transition-all duration-300"
+        style={{ top: "4px", left: value ? "24px" : "4px" }}
       />
     </button>
   );
 
   return (
-    <div className="min-h-screen py-8 px-4" style={{ background: "#060d1f", color: "white" }}>
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen py-6 sm:py-8 px-4" style={{ background: "#060d1f", color: "white" }}>
+      <div className="max-w-3xl mx-auto" style={{ paddingBottom: "80px" }}>
 
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
@@ -136,7 +138,7 @@ export function ProfilePage() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-3xl p-6 mb-5 flex flex-col sm:flex-row items-center sm:items-start gap-5"
+          className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 mb-4 sm:mb-5 flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-5"
           style={{ background: "linear-gradient(135deg, rgba(30,64,175,0.15), rgba(37,99,235,0.06))", border: "1px solid rgba(37,99,235,0.2)" }}
         >
           <div className="relative group">
@@ -258,11 +260,12 @@ export function ProfilePage() {
                   <button
                     key={bt}
                     onClick={() => setBloodType(bt)}
-                    className="px-3.5 py-1.5 rounded-xl text-sm font-bold transition-all hover:scale-105"
+                    className="px-3.5 py-2 rounded-xl text-sm font-bold transition-all active:scale-95"
                     style={{
                       background: bloodType === bt ? "linear-gradient(135deg, #b91c1c, #dc2626)" : "rgba(255,255,255,0.05)",
                       color: bloodType === bt ? "white" : "rgba(255,255,255,0.5)",
                       border: bloodType === bt ? "1px solid rgba(220,38,38,0.4)" : "1px solid rgba(255,255,255,0.08)",
+                      minHeight: "44px",
                     }}
                   >
                     {bt}
@@ -284,11 +287,12 @@ export function ProfilePage() {
                 <button
                   key={organ}
                   onClick={() => toggleOrgan(organ)}
-                  className="px-3 py-1.5 rounded-xl text-sm font-semibold transition-all hover:scale-105"
+                  className="px-3 py-2 rounded-xl text-sm font-semibold transition-all active:scale-95"
                   style={{
                     background: pledgedOrgans.includes(organ) ? "rgba(37,99,235,0.2)" : "rgba(255,255,255,0.04)",
                     color: pledgedOrgans.includes(organ) ? "#93c5fd" : "rgba(255,255,255,0.4)",
                     border: pledgedOrgans.includes(organ) ? "1px solid rgba(37,99,235,0.35)" : "1px solid rgba(255,255,255,0.07)",
+                    minHeight: "44px",
                   }}
                 >
                   {pledgedOrgans.includes(organ) && <CheckCircle size={12} style={{ display: "inline", marginRight: "4px", verticalAlign: "middle" }} />}
@@ -408,12 +412,13 @@ export function ProfilePage() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="sticky bottom-4 flex items-center justify-between gap-4 px-5 py-3.5 rounded-2xl"
+          className="sticky bottom-0 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 px-4 sm:px-5 py-3.5 rounded-t-2xl sm:rounded-2xl"
           style={{
-            background: "rgba(15,23,42,0.95)",
+            background: "rgba(15,23,42,0.97)",
             backdropFilter: "blur(20px)",
             border: "1px solid rgba(255,255,255,0.1)",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.5)",
+            boxShadow: "0 -4px 30px rgba(0,0,0,0.5)",
+            paddingBottom: "calc(14px + env(safe-area-inset-bottom))",
           }}
         >
           <p style={{ fontSize: "13px", color: "rgba(148,163,184,0.7)" }}>
@@ -423,8 +428,8 @@ export function ProfilePage() {
           </p>
           <button
             onClick={handleSave}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:scale-105 active:scale-95"
-            style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 15px rgba(37,99,235,0.35)" }}
+            className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold text-white transition-all active:scale-95"
+            style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 15px rgba(37,99,235,0.35)", minHeight: "48px" }}
           >
             <Save size={15} /> Save Changes
           </button>

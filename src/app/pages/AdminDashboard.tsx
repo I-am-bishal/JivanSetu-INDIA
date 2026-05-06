@@ -56,7 +56,7 @@ export function AdminDashboard() {
     return (
       <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#060d1f" }}>
         <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }}
-          className="w-full max-w-md rounded-3xl p-8"
+          className="w-full max-w-md rounded-2xl sm:rounded-3xl p-5 sm:p-8"
           style={{ background: "linear-gradient(180deg, rgba(37,99,235,0.1), rgba(0,0,0,0))", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 20px 40px rgba(0,0,0,0.4)" }}>
 
           <div className="flex flex-col items-center mb-8">
@@ -85,8 +85,8 @@ export function AdminDashboard() {
                 </div>
                 <input type="text" value={adminId} onChange={(e) => setAdminId(e.target.value)} required
                   placeholder="Enter admin ID"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-white/20 outline-none"
-                  style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }} />
+                  className="w-full pl-10 pr-4 py-3 rounded-xl text-white placeholder-white/20 outline-none"
+                  style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", fontSize: "16px", minHeight: "48px" }} />
               </div>
             </div>
 
@@ -98,14 +98,14 @@ export function AdminDashboard() {
                 </div>
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-white/20 outline-none"
-                  style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }} />
+                  className="w-full pl-10 pr-4 py-3 rounded-xl text-white placeholder-white/20 outline-none"
+                  style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", fontSize: "16px", minHeight: "48px" }} />
               </div>
             </div>
 
             <button type="submit"
-              className="w-full py-3.5 rounded-xl font-semibold text-white mt-6 flex items-center justify-center gap-2 group transition-all"
-              style={{ background: "linear-gradient(135deg, #1e40af, #3b82f6)", boxShadow: "0 8px 20px rgba(59,130,246,0.25)" }}>
+              className="w-full py-3.5 rounded-xl font-semibold text-white mt-6 flex items-center justify-center gap-2 group transition-all active:scale-95"
+              style={{ background: "linear-gradient(135deg, #1e40af, #3b82f6)", boxShadow: "0 8px 20px rgba(59,130,246,0.25)", minHeight: "50px" }}>
               Access Dashboard <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </form>
@@ -234,15 +234,15 @@ export function AdminDashboard() {
                   placeholder="Search by name, email, or ID..." 
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm text-white placeholder-white/40 outline-none"
-                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl text-white placeholder-white/40 outline-none"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", fontSize: "16px", minHeight: "44px" }}
                 />
               </div>
               <select 
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                className="px-4 py-2.5 rounded-xl text-sm text-white outline-none cursor-pointer"
-                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
+                className="px-4 py-2.5 rounded-xl text-white outline-none cursor-pointer"
+                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", fontSize: "16px", minHeight: "44px" }}
               >
                 <option value="all" style={{ background: "#0f172a" }}>All Users</option>
                 <option value="blood-donor" style={{ background: "#0f172a" }}>Blood Donors</option>

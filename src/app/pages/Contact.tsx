@@ -69,7 +69,7 @@ export function Contact() {
             <Phone size={16} className="text-red-500" />
             <p style={{ fontSize: "13px", color: "#f87171", fontWeight: 600, letterSpacing: "0.08em" }}>EMERGENCY HELPLINES</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             {HELPLINES.map((line, i) => (
               <motion.div
                 key={line.name}
@@ -103,7 +103,7 @@ export function Contact() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-3 rounded-3xl p-6 md:p-8"
+            className="lg:col-span-3 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8"
             style={{ background: styles.cardBg, border: `1px solid ${styles.cardBorder}` }}
           >
             <div className="flex items-center gap-2 mb-6">
@@ -131,7 +131,7 @@ export function Contact() {
                     type="text" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="Your full name"
                     className="rounded-xl outline-none px-4 py-3"
-                    style={{ background: styles.inputBg, border: `1px solid ${styles.inputBorder}`, color: styles.inputText, fontSize: "15px" }}
+                    style={{ background: styles.inputBg, border: `1px solid ${styles.inputBorder}`, color: styles.inputText, fontSize: "16px", minHeight: "48px" }}
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
@@ -140,7 +140,7 @@ export function Contact() {
                     type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="you@example.com"
                     className="rounded-xl outline-none px-4 py-3"
-                    style={{ background: styles.inputBg, border: `1px solid ${styles.inputBorder}`, color: styles.inputText, fontSize: "15px" }}
+                    style={{ background: styles.inputBg, border: `1px solid ${styles.inputBorder}`, color: styles.inputText, fontSize: "16px", minHeight: "48px" }}
                   />
                 </div>
               </div>
@@ -150,7 +150,7 @@ export function Contact() {
                 <select
                   required value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
                   className="rounded-xl outline-none px-4 py-3"
-                  style={{ background: styles.inputBg, border: `1px solid ${styles.inputBorder}`, color: styles.inputText, fontSize: "15px" }}
+                  style={{ background: styles.inputBg, border: `1px solid ${styles.inputBorder}`, color: styles.inputText, fontSize: "16px", minHeight: "48px" }}
                 >
                   <option value="" style={{ background: styles.selectBg }}>Select a category</option>
                   {CATEGORIES.map((c) => <option key={c} value={c} style={{ background: styles.selectBg }}>{c}</option>)}
@@ -163,7 +163,7 @@ export function Contact() {
                   type="text" required value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })}
                   placeholder="Brief description of your query"
                   className="rounded-xl outline-none px-4 py-3"
-                  style={{ background: styles.inputBg, border: `1px solid ${styles.inputBorder}`, color: styles.inputText, fontSize: "15px" }}
+                  style={{ background: styles.inputBg, border: `1px solid ${styles.inputBorder}`, color: styles.inputText, fontSize: "16px", minHeight: "48px" }}
                 />
               </div>
 
@@ -174,14 +174,14 @@ export function Contact() {
                   placeholder="Tell us how we can help..."
                   rows={5}
                   className="rounded-xl outline-none px-4 py-3 resize-none"
-                  style={{ background: styles.inputBg, border: `1px solid ${styles.inputBorder}`, color: styles.inputText, fontSize: "15px" }}
+                  style={{ background: styles.inputBg, border: `1px solid ${styles.inputBorder}`, color: styles.inputText, fontSize: "16px" }}
                 />
               </div>
 
               <button
                 type="submit"
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-white font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
-                style={{ background: "linear-gradient(135deg, #1e40af, #2563eb)", boxShadow: "0 8px 25px rgba(37,99,235,0.3)", fontSize: "15px" }}
+                style={{ background: "linear-gradient(135deg, #1e40af, #2563eb)", boxShadow: "0 8px 25px rgba(37,99,235,0.3)", fontSize: "16px", minHeight: "50px" }}
               >
                 <Send size={16} />
                 Send Message

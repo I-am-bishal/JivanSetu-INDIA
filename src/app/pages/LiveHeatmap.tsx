@@ -99,7 +99,7 @@ export function LiveHeatmap() {
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: `${s.color}22`, color: s.color }}>{s.icon}</div>
               </div>
-              <p style={{ fontSize: "24px", fontWeight: 800, color: "white" }}>{s.value}</p>
+              <p style={{ fontSize: "clamp(18px, 4.5vw, 24px)", fontWeight: 800, color: "white" }}>{s.value}</p>
               <p style={{ fontSize: "11px", color: "rgba(148,163,184,0.6)" }}>{s.label}</p>
             </div>
           ))}
@@ -115,6 +115,7 @@ export function LiveHeatmap() {
                 background: filter === f ? "rgba(37,99,235,0.2)" : "rgba(255,255,255,0.04)",
                 border: filter === f ? "1px solid rgba(37,99,235,0.4)" : "1px solid rgba(255,255,255,0.08)",
                 color: filter === f ? "white" : "rgba(255,255,255,0.5)",
+                minHeight: "44px",
               }}
             >{f === "all" ? "All Types" : f}</button>
           ))}
@@ -127,6 +128,7 @@ export function LiveHeatmap() {
                 background: severityFilter === s ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.04)",
                 border: severityFilter === s ? "1px solid rgba(255,255,255,0.2)" : "1px solid rgba(255,255,255,0.06)",
                 color: severityFilter === s ? "white" : "rgba(255,255,255,0.4)",
+                minHeight: "44px",
               }}
             >
               {s === "all" && <Filter size={11} />}
@@ -196,8 +198,18 @@ export function LiveHeatmap() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="absolute top-4 right-4 w-72 rounded-2xl p-5 z-10"
-                  style={{ background: "rgba(15,23,42,0.95)", border: `1px solid ${SEVERITY_CONFIG[selectedCity.severity].color}44`, backdropFilter: "blur(20px)" }}
+                  className="absolute z-10 rounded-2xl p-5"
+                  style={{
+                    background: "rgba(15,23,42,0.95)",
+                    border: `1px solid ${SEVERITY_CONFIG[selectedCity.severity].color}44`,
+                    backdropFilter: "blur(20px)",
+                    /* On mobile: bottom sheet, on desktop: top-right */
+                    ...(window.innerWidth < 640 ? {
+                      bottom: "8px", left: "8px", right: "8px", top: "auto", width: "auto",
+                    } : {
+                      top: "16px", right: "16px", width: "288px",
+                    }),
+                  }}
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div>

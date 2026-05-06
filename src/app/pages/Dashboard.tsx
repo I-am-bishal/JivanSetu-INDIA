@@ -57,7 +57,7 @@ export function Dashboard() {
   const [activeTab, setActiveTab] = useState<"history" | "upcoming">("history");
 
   return (
-    <div className="min-h-screen py-8 px-4" style={{ background: "#060d1f", color: "white" }}>
+    <div className="min-h-screen py-6 sm:py-8 px-4" style={{ background: "#060d1f", color: "white" }}>
       <div className="max-w-6xl mx-auto">
 
         {/* Welcome Header */}
@@ -166,7 +166,7 @@ export function Dashboard() {
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style={{ background: stat.gradient }}>
                   <span style={{ color: "white" }}>{stat.icon}</span>
                 </div>
-                <p style={{ fontSize: "26px", fontWeight: 800, color: "white", lineHeight: 1 }}>{stat.value}</p>
+                <p style={{ fontSize: "clamp(20px, 5vw, 26px)", fontWeight: 800, color: "white", lineHeight: 1 }}>{stat.value}</p>
                 <p style={{ fontSize: "11px", color: "rgba(148,163,184,0.6)", marginTop: "4px" }}>{stat.label}</p>
               </motion.div>
             ))}
@@ -216,8 +216,8 @@ export function Dashboard() {
             <Link
               key={action.label}
               to={action.href}
-              className="flex items-center gap-3 rounded-2xl p-4 transition-all hover:scale-[1.02] group"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+              className="flex items-center gap-3 rounded-2xl p-3 sm:p-4 transition-all hover:scale-[1.02] group"
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", minHeight: "56px" }}
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                 style={{ background: `${action.color}20`, color: action.color }}>
@@ -248,7 +248,7 @@ export function Dashboard() {
               {BADGES.filter(b => b.earned).length}/{BADGES.length} earned
             </span>
           </div>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+          <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3">
             {BADGES.map((badge) => (
               <div
                 key={badge.id}
@@ -309,7 +309,7 @@ export function Dashboard() {
                 {DONATION_HISTORY.map((item, i) => (
                   <div
                     key={item.id}
-                    className="flex items-center gap-4 p-3.5 rounded-xl transition-all hover:bg-white/[0.03]"
+                    className="flex items-start sm:items-center gap-3 sm:gap-4 p-3 sm:p-3.5 rounded-xl transition-all hover:bg-white/[0.03] flex-wrap sm:flex-nowrap"
                     style={{ border: "1px solid rgba(255,255,255,0.05)" }}
                   >
                     <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -317,11 +317,11 @@ export function Dashboard() {
                       <Droplets size={16} color="white" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p style={{ fontSize: "13px", fontWeight: 600, color: "white" }}>{item.bloodType} Blood Donation</p>
-                      <p style={{ fontSize: "11px", color: "rgba(148,163,184,0.6)" }}>{item.location}</p>
+                      <p className="truncate" style={{ fontSize: "13px", fontWeight: 600, color: "white" }}>{item.bloodType} Blood Donation</p>
+                      <p className="truncate" style={{ fontSize: "11px", color: "rgba(148,163,184,0.6)" }}>{item.location}</p>
                     </div>
-                    <div className="text-right flex-shrink-0">
-                      <p style={{ fontSize: "12px", color: "rgba(255,255,255,0.6)" }}>{item.date}</p>
+                    <div className="text-right flex-shrink-0 ml-auto">
+                      <p className="whitespace-nowrap" style={{ fontSize: "12px", color: "rgba(255,255,255,0.6)" }}>{item.date}</p>
                       <div className="flex items-center gap-1 justify-end mt-0.5">
                         <CheckCircle size={10} className="text-green-400" />
                         <span style={{ fontSize: "10px", color: "#6ee7b7", fontWeight: 600 }}>Completed</span>

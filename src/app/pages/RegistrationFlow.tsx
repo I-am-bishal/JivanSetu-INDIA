@@ -38,13 +38,15 @@ type FormData = {
 
 function StepIndicator({ steps, current }: { steps: string[]; current: number }) {
   return (
-    <div className="flex items-center justify-center gap-0 mb-10">
+    <div className="flex items-center justify-center gap-0 mb-8 sm:mb-10 overflow-x-auto" style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
       {steps.map((step, i) => (
-        <div key={step} className="flex items-center">
-          <div className="flex flex-col items-center gap-1.5">
+        <div key={step} className="flex items-center flex-shrink-0">
+          <div className="flex flex-col items-center gap-1">
             <div
-              className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300"
+              className="rounded-full flex items-center justify-center transition-all duration-300"
               style={{
+                width: "clamp(28px, 7vw, 36px)",
+                height: "clamp(28px, 7vw, 36px)",
                 background: i < current ? "#10b981" : i === current ? "#2563eb" : "rgba(255,255,255,0.08)",
                 border: i === current ? "2px solid rgba(96,165,250,0.5)" : "none",
                 boxShadow: i === current ? "0 0 20px rgba(37,99,235,0.4)" : "none",
@@ -63,8 +65,8 @@ function StepIndicator({ steps, current }: { steps: string[]; current: number })
             </span>
           </div>
           {i < steps.length - 1 && (
-            <div className="w-12 h-0.5 mt-[-14px] mx-1"
-              style={{ background: i < current ? "#10b981" : "rgba(255,255,255,0.08)" }}
+            <div className="mt-[-14px] mx-0.5 sm:mx-1"
+              style={{ background: i < current ? "#10b981" : "rgba(255,255,255,0.08)", width: "clamp(20px, 5vw, 48px)", height: "2px" }}
             />
           )}
         </div>
@@ -96,7 +98,9 @@ function InputField({ label, value, onChange, type = "text", placeholder, icon }
             border: "1px solid rgba(255,255,255,0.1)",
             padding: `12px ${icon ? "12px 12px 44px" : "12px"}`,
             paddingLeft: icon ? "44px" : "12px",
-            fontSize: "14px",
+            fontSize: "16px",
+            minHeight: "48px",
+            WebkitAppearance: "none" as any,
           }}
           onFocus={(e) => { e.target.style.borderColor = "rgba(37,99,235,0.6)"; e.target.style.background = "rgba(37,99,235,0.08)"; }}
           onBlur={(e) => { e.target.style.borderColor = "rgba(255,255,255,0.1)"; e.target.style.background = "rgba(255,255,255,0.06)"; }}
@@ -150,7 +154,7 @@ export function RegistrationFlow() {
   const isReceiver = personaType === "organ-receiver" || personaType === "blood-receiver";
 
   return (
-    <div className="min-h-screen py-12 px-4" style={{ background: "#060d1f" }}>
+    <div className="min-h-screen py-8 sm:py-12 px-4" style={{ background: "#060d1f" }}>
       <div className="max-w-xl mx-auto">
 
         {/* Header */}
@@ -242,9 +246,9 @@ export function RegistrationFlow() {
                 </div>
                 <button
                   onClick={() => setStep(1)}
-                  disabled={!form.fullName || !form.aadhaar || !form.bloodType}
-                  className="w-full mt-6 py-3.5 rounded-xl text-white font-semibold transition-all hover:opacity-90 active:scale-98 disabled:opacity-40"
-                  style={{ background: persona.gradient, fontSize: "15px" }}
+                    disabled={!form.fullName || !form.aadhaar || !form.bloodType}
+                    className="w-full mt-6 py-3.5 rounded-xl text-white font-semibold transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-40"
+                    style={{ background: persona.gradient, fontSize: "16px", minHeight: "50px" }}
                 >
                   Continue <ArrowRight className="inline ml-1" size={16} />
                 </button>
@@ -293,11 +297,13 @@ export function RegistrationFlow() {
                           maxLength={1}
                           value={digit}
                           onChange={(e) => handleOTPChange(i, e.target.value)}
-                          className="w-12 h-12 text-center rounded-xl text-white font-bold outline-none transition-all"
+                          className="text-center rounded-xl text-white font-bold outline-none transition-all"
                           style={{
+                            width: "clamp(40px, 12vw, 48px)",
+                            height: "clamp(44px, 12vw, 52px)",
                             background: digit ? "rgba(37,99,235,0.2)" : "rgba(255,255,255,0.06)",
                             border: digit ? "1px solid rgba(37,99,235,0.5)" : "1px solid rgba(255,255,255,0.1)",
-                            fontSize: "20px",
+                            fontSize: "18px",
                           }}
                         />
                       ))}

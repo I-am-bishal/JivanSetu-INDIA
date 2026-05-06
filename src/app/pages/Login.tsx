@@ -53,11 +53,13 @@ export function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="donor@example.com"
-                className="w-full pl-10 pr-4 py-3 rounded-xl text-sm transition-all focus:outline-none"
+                className="w-full pl-10 pr-4 py-3 rounded-xl transition-all focus:outline-none"
                 style={{
                   background: styles.inputBg,
                   border: `1px solid ${styles.inputBorder}`,
                   color: styles.inputText,
+                  fontSize: "16px",
+                  minHeight: "48px",
                 }}
               />
             </div>
@@ -75,11 +77,13 @@ export function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-3 rounded-xl text-sm transition-all focus:outline-none"
+                className="w-full pl-10 pr-4 py-3 rounded-xl transition-all focus:outline-none"
                 style={{
                   background: styles.inputBg,
                   border: `1px solid ${styles.inputBorder}`,
                   color: styles.inputText,
+                  fontSize: "16px",
+                  minHeight: "48px",
                 }}
               />
             </div>
@@ -92,8 +96,8 @@ export function Login() {
 
           <button 
             type="submit"
-            className="w-full py-3.5 rounded-xl font-semibold text-white mt-6 flex items-center justify-center gap-2 group transition-all"
-            style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 8px 20px rgba(37,99,235,0.25)" }}
+            className="w-full py-3.5 rounded-xl font-semibold text-white mt-6 flex items-center justify-center gap-2 group transition-all active:scale-95"
+            style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 8px 20px rgba(37,99,235,0.25)", minHeight: "50px" }}
           >
             Log In
             <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />

@@ -42,7 +42,7 @@ export function ForgotPassword() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#060d1f" }}>
       <div
-        className="w-full max-w-md p-8 rounded-3xl"
+        className="w-full max-w-md p-5 sm:p-8 rounded-2xl sm:rounded-3xl"
         style={{
           background: "linear-gradient(180deg, rgba(30,58,138,0.1), rgba(0,0,0,0))",
           border: "1px solid rgba(255,255,255,0.08)",
@@ -79,16 +79,16 @@ export function ForgotPassword() {
                     <input
                       type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
                       placeholder="donor@example.com"
-                      className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-white/20 transition-all focus:outline-none"
-                      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
+                      className="w-full pl-10 pr-4 py-3 rounded-xl text-white placeholder-white/20 transition-all focus:outline-none"
+                      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", fontSize: "16px", minHeight: "48px" }}
                     />
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-xl font-semibold text-white mt-4 flex items-center justify-center gap-2 group transition-all"
-                  style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 8px 20px rgba(37,99,235,0.25)" }}
+                  className="w-full py-3.5 rounded-xl font-semibold text-white mt-4 flex items-center justify-center gap-2 group transition-all active:scale-95"
+                  style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 8px 20px rgba(37,99,235,0.25)", minHeight: "50px" }}
                 >
                   Send OTP
                   <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -134,11 +134,13 @@ export function ForgotPassword() {
                     maxLength={1}
                     value={digit}
                     onChange={(e) => handleOTPChange(i, e.target.value)}
-                    className="w-12 h-12 text-center rounded-xl text-white font-bold outline-none transition-all"
+                    className="text-center rounded-xl text-white font-bold outline-none transition-all"
                     style={{
+                      width: "clamp(40px, 12vw, 48px)",
+                      height: "clamp(44px, 12vw, 52px)",
                       background: digit ? "rgba(37,99,235,0.2)" : "rgba(255,255,255,0.06)",
                       border: digit ? "1px solid rgba(37,99,235,0.5)" : "1px solid rgba(255,255,255,0.1)",
-                      fontSize: "20px",
+                      fontSize: "18px",
                     }}
                   />
                 ))}
@@ -147,14 +149,14 @@ export function ForgotPassword() {
               <button
                 onClick={handleVerifyOTP}
                 disabled={otp.join("").length < 6}
-                className="w-full py-3.5 rounded-xl text-white font-semibold transition-all disabled:opacity-40"
-                style={{ background: "linear-gradient(135deg, #065f46, #059669)", fontSize: "15px" }}
+                className="w-full py-3.5 rounded-xl text-white font-semibold transition-all disabled:opacity-40 active:scale-95"
+                style={{ background: "linear-gradient(135deg, #065f46, #059669)", fontSize: "16px", minHeight: "50px" }}
               >
                 <CheckCircle className="inline mr-2" size={16} /> Verify & Continue
               </button>
 
               <button onClick={() => setStep("email")} className="w-full mt-3 py-2.5 text-white/50 hover:text-white/80 transition-all flex items-center justify-center gap-1"
-                style={{ fontSize: "13px" }}>
+                style={{ fontSize: "14px", minHeight: "44px" }}>
                 <ArrowLeft size={14} /> Back
               </button>
             </motion.div>
@@ -180,8 +182,8 @@ export function ForgotPassword() {
                       required value={password} onChange={(e) => setPassword(e.target.value)}
                       placeholder="Min 8 characters"
                       minLength={8}
-                      className="w-full pl-10 pr-10 py-3 rounded-xl text-sm text-white placeholder-white/20 transition-all focus:outline-none"
-                      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
+                      className="w-full pl-10 pr-10 py-3 rounded-xl text-white placeholder-white/20 transition-all focus:outline-none"
+                      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", fontSize: "16px", minHeight: "48px" }}
                     />
                     <button type="button" onClick={() => setShowPassword(!showPassword)}
                       className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-white/40 hover:text-white/70">
@@ -201,8 +203,8 @@ export function ForgotPassword() {
                       required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="Repeat your password"
                       minLength={8}
-                      className="w-full pl-10 pr-10 py-3 rounded-xl text-sm text-white placeholder-white/20 transition-all focus:outline-none"
-                      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
+                      className="w-full pl-10 pr-10 py-3 rounded-xl text-white placeholder-white/20 transition-all focus:outline-none"
+                      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", fontSize: "16px", minHeight: "48px" }}
                     />
                     <button type="button" onClick={() => setShowConfirm(!showConfirm)}
                       className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-white/40 hover:text-white/70">
@@ -217,8 +219,8 @@ export function ForgotPassword() {
                 <button
                   type="submit"
                   disabled={!password || password !== confirmPassword || password.length < 8}
-                  className="w-full py-3.5 rounded-xl font-semibold text-white mt-4 flex items-center justify-center gap-2 transition-all disabled:opacity-40"
-                  style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 8px 20px rgba(37,99,235,0.25)" }}
+                  className="w-full py-3.5 rounded-xl font-semibold text-white mt-4 flex items-center justify-center gap-2 transition-all disabled:opacity-40 active:scale-95"
+                  style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 8px 20px rgba(37,99,235,0.25)", minHeight: "50px" }}
                 >
                   Reset Password
                   <ArrowRight size={16} />

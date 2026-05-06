@@ -91,10 +91,12 @@ export function SevaAIWidget() {
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setOpen(true)}
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-2xl text-white shadow-2xl"
+            className="fixed z-50 flex items-center gap-2.5 px-4 py-3 rounded-2xl text-white shadow-2xl"
             style={{
               background: "linear-gradient(135deg, #1e40af, #2563eb)",
               boxShadow: "0 8px 32px rgba(37,99,235,0.45), 0 0 0 1px rgba(255,255,255,0.1)",
+              bottom: "calc(24px + env(safe-area-inset-bottom))",
+              right: "16px",
             }}
           >
             <div className="relative">
@@ -117,14 +119,25 @@ export function SevaAIWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed bottom-6 right-6 z-50 flex flex-col rounded-3xl overflow-hidden"
+            className="fixed z-50 flex flex-col overflow-hidden"
             style={{
-              width: "min(500px, calc(100vw - 24px))",
-              height: "min(700px, calc(100vh - 100px))",
+              bottom: "0",
+              right: "0",
+              width: "100vw",
+              height: "100dvh",
+              borderRadius: "0",
               background: styles.dropdownBg,
               backdropFilter: "blur(20px)",
-              border: `1px solid ${styles.dropdownBorder}`,
+              border: "none",
               boxShadow: styles.dropdownShadow,
+              ...(window.innerWidth >= 640 ? {
+                bottom: "24px",
+                right: "24px",
+                width: "min(500px, calc(100vw - 48px))",
+                height: "min(700px, calc(100vh - 100px))",
+                borderRadius: "24px",
+                border: `1px solid ${styles.dropdownBorder}`,
+              } : {}),
             }}
           >
             {/* Header */}
@@ -133,6 +146,7 @@ export function SevaAIWidget() {
               style={{
                 background: "linear-gradient(135deg, rgba(30,64,175,0.8), rgba(37,99,235,0.6))",
                 borderBottom: "1px solid rgba(255,255,255,0.08)",
+                paddingTop: "calc(16px + env(safe-area-inset-top))",
               }}
             >
               <div className="flex items-center gap-3">
@@ -155,9 +169,10 @@ export function SevaAIWidget() {
                 <LanguageSelector />
                 <button
                   onClick={() => setOpen(false)}
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
+                  className="rounded-full flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all"
+                  style={{ width: "44px", height: "44px", minWidth: "44px" }}
                 >
-                  <X size={16} />
+                  <X size={18} />
                 </button>
               </div>
             </div>
@@ -285,7 +300,10 @@ export function SevaAIWidget() {
             {/* Input */}
             <div
               className="flex items-center gap-2 px-4 py-3 flex-shrink-0"
-              style={{ borderTop: `1px solid ${styles.cardBorder}` }}
+              style={{
+                borderTop: `1px solid ${styles.cardBorder}`,
+                paddingBottom: "calc(12px + env(safe-area-inset-bottom))",
+              }}
             >
               <input
                 ref={inputRef}
@@ -300,8 +318,8 @@ export function SevaAIWidget() {
               <button
                 onClick={() => sendMessage(input)}
                 disabled={!input.trim()}
-                className="w-9 h-9 rounded-xl flex items-center justify-center transition-all disabled:opacity-30 hover:scale-105 active:scale-95"
-                style={{ background: "linear-gradient(135deg, #1e40af, #2563eb)" }}
+                className="rounded-xl flex items-center justify-center transition-all disabled:opacity-30 hover:scale-105 active:scale-95"
+                style={{ width: "44px", height: "44px", minWidth: "44px", background: "linear-gradient(135deg, #1e40af, #2563eb)" }}
               >
                 <Send size={15} color="white" />
               </button>
