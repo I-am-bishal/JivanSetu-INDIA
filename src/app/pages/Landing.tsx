@@ -635,7 +635,12 @@ export function Landing() {
               Powerful Features for Saving Lives
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Hide scrollbar specific to this section if global css doesn't catch it */}
+          <style>{`
+            .features-scroll::-webkit-scrollbar { display: none; }
+            .features-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+          `}</style>
+          <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none pb-8 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 features-scroll" style={{ scrollPaddingLeft: "16px" }}>
             {[
               { href: "/heatmap", title: "Live Heatmap", sub: "Real-time urgency map across India", icon: <MapPin size={20} />, color: "#f59e0b", gradient: "linear-gradient(135deg, #92400e, #d97706)" },
               { href: "/alerts", title: "Proximity Alerts", sub: "Get notified when someone nearby needs help", icon: <Bell size={20} />, color: "#3b82f6", gradient: "linear-gradient(135deg, #1e3a8a, #2563eb)" },
@@ -659,6 +664,7 @@ export function Landing() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
                 whileHover={{ y: -4 }}
+                className="w-[75vw] sm:w-auto shrink-0 snap-start"
               >
                 <Link to={feat.href}
                   className="block rounded-2xl p-5 h-full group transition-all"
