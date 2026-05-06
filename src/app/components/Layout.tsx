@@ -10,7 +10,7 @@ export function Layout() {
 
   return (
     <div
-      className="min-h-screen flex flex-col transition-colors duration-300 overflow-x-hidden"
+      className="min-h-screen flex flex-col transition-colors duration-300 overflow-x-clip"
       style={{
         background: styles.pageBg,
         color: styles.pageColor,
