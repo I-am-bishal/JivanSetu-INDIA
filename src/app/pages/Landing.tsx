@@ -654,9 +654,9 @@ export function Landing() {
               { href: "/stories", title: "Success Stories", sub: "Real stories of lives changed", icon: <BookOpen size={20} />, color: "#14b8a6", gradient: "linear-gradient(135deg, #134e4a, #14b8a6)" },
               { href: "/legal-faq", title: "Legal FAQ", sub: "THOTA explained in simple terms", icon: <Scale size={20} />, color: "#f59e0b", gradient: "linear-gradient(135deg, #78350f, #b45309)" },
               { href: "/seva-ai", title: "Seva AI", sub: "Your 24/7 AI-powered donation guide", icon: <Heart size={20} />, color: "#ec4899", gradient: "linear-gradient(135deg, #831843, #db2777)" },
-              { href: "/hospitals", title: "Nearby Hospitals", sub: "Find hospitals & transplant centres near you", icon: <Building2 size={20} />, color: "#0ea5e9", gradient: "linear-gradient(135deg, #0c4a6e, #0284c7)" },
-              { href: "/doctors", title: "Doctor Directory", sub: "Connect with verified specialists", icon: <Stethoscope size={20} />, color: "#a855f7", gradient: "linear-gradient(135deg, #581c87, #7c3aed)" },
-              { href: "/emergency-services", title: "Emergency Services", sub: "Ambulance, pharmacies & helplines", icon: <Ambulance size={20} />, color: "#dc2626", gradient: "linear-gradient(135deg, #7f1d1d, #b91c1c)" },
+              { href: "/hospitals", title: "Nearby Hospitals", sub: "Find hospitals & transplant centres near you", icon: <Building2 size={20} />, color: "#0ea5e9", gradient: "linear-gradient(135deg, #0c4a6e, #0284c7)", isMain: true },
+              { href: "/doctors", title: "Doctor Directory", sub: "Connect with verified specialists", icon: <Stethoscope size={20} />, color: "#a855f7", gradient: "linear-gradient(135deg, #581c87, #7c3aed)", isMain: true },
+              { href: "/emergency-services", title: "Emergency Services", sub: "Ambulance, pharmacies & helplines", icon: <Ambulance size={20} />, color: "#dc2626", gradient: "linear-gradient(135deg, #7f1d1d, #b91c1c)", isMain: true },
             ].map((feat, i) => (
               <motion.div key={feat.href}
                 initial={{ opacity: 0, y: 15 }}
@@ -664,7 +664,7 @@ export function Landing() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
                 whileHover={{ y: -4 }}
-                className="w-[75vw] sm:w-auto shrink-0 snap-start"
+                className={`w-[75vw] sm:w-auto shrink-0 snap-start ${feat.isMain ? 'order-[-1] sm:order-none' : ''}`}
               >
                 <Link to={feat.href}
                   className="block rounded-2xl p-5 h-full group transition-all"
