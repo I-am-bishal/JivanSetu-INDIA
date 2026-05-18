@@ -334,20 +334,21 @@ export function Navbar() {
         <>
           {/* Backdrop overlay */}
           <div
-            className="fixed inset-0 z-30 md:hidden"
-            style={{ background: "rgba(0,0,0,0.5)", backdropFilter: "blur(4px)" }}
+            className="fixed inset-0 md:hidden"
+            style={{ background: "rgba(0,0,0,0.5)", backdropFilter: "blur(4px)", zIndex: 100 }}
             onClick={() => setMobileOpen(false)}
           />
 
           {/* Sliding drawer */}
           <div
-            className="fixed inset-x-0 top-0 z-40 md:hidden flex flex-col"
+            className="fixed inset-x-0 top-0 md:hidden flex flex-col"
             style={{
               background: styles.navBg,
               backdropFilter: "blur(20px)",
               maxHeight: "100dvh",
               paddingTop: "env(safe-area-inset-top)",
               animation: "slideDown 0.25s ease-out",
+              zIndex: 110,
             }}
           >
             {/* Mobile header */}
