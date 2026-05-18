@@ -111,12 +111,13 @@ export function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-40 w-full transition-colors duration-300"
+      className="sticky top-0 w-full transition-colors duration-300"
       style={{
         background: styles.navBg,
         backdropFilter: "blur(20px)",
         borderBottom: `1px solid ${styles.navBorder}`,
         paddingTop: "env(safe-area-inset-top)",
+        zIndex: mobileOpen ? 100 : 40,
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">

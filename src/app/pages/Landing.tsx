@@ -139,6 +139,13 @@ export function Landing() {
   const { t } = useTranslation();
   const [heroIdx, setHeroIdx] = useState(0);
   const styles = useThemeStyles();
+  const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem("jivansetu_logged_in") === "true");
+
+  useEffect(() => {
+    const sync = () => setIsLoggedIn(localStorage.getItem("jivansetu_logged_in") === "true");
+    window.addEventListener("storage", sync);
+    return () => window.removeEventListener("storage", sync);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => setHeroIdx((i) => (i + 1) % HERO_IMAGES.length), 5000);
@@ -243,11 +250,48 @@ export function Landing() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="text-center mb-10 max-w-xl"
+            className="text-center mb-6 max-w-xl"
             style={{ fontSize: "16px", color: styles.textMuted, lineHeight: 1.6 }}
           >
             {t("subTagline")}
           </motion.p>
+
+          {/* Mobile Auth CTA Block — Only shown on mobile view (md:hidden) when not logged in */}
+          {!isLoggedIn && (
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.65 }}
+              className="flex md:hidden flex-col xs:flex-row items-center gap-3 w-full max-w-sm px-4 mb-10"
+            >
+              <Link
+                to="/login"
+                className="w-full text-center py-3.5 rounded-2xl text-white font-bold transition-all hover:opacity-90 active:scale-95 flex items-center justify-center gap-2"
+                style={{
+                  background: "linear-gradient(135deg, #2563eb, #1d4ed8)",
+                  fontSize: "14px",
+                  boxShadow: "0 8px 25px rgba(37,99,235,0.35)",
+                }}
+              >
+                <Users size={16} />
+                Login / Sign In
+              </Link>
+              <Link
+                to="/register"
+                className="w-full text-center py-3.5 rounded-2xl font-bold transition-all active:scale-95 flex items-center justify-center gap-2"
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  border: `1px solid ${styles.cardBorder}`,
+                  color: styles.textPrimary,
+                  fontSize: "14px",
+                  backdropFilter: "blur(10px)",
+                }}
+              >
+                <Heart size={16} className="text-red-500" />
+                Register / Sign Up
+              </Link>
+            </motion.div>
+          )}
 
           {/* ═══ FOUR PERSONA CARDS ═══ */}
           <motion.div
